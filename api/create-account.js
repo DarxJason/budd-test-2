@@ -2,22 +2,25 @@
 import { Pool } from 'pg';
 
 const pool = new Pool({
-    connectionString: process.env.DATABASE_URL,
+    connectionString: process.env.POSTGRES_URL, // Ensure this is set correctly in Vercel
 });
 
 export default async (req, res) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'POST');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
     if (req.method === 'POST') {
         try {
-            const loginCode = generateLoginCode(); // Your function to generate a 10-digit code
-            // Optionally, save the login code in the database
+            const loginCode = generateLoginCode(); // Function to generate a random login code
 
-            // Example query to save the login code (customize based on your DB schema)
+            // Insert into the database
             await pool.query('INSERT INTO users (login_code) VALUES ($1)', [loginCode]);
 
             res.status(200).json({ loginCode });
         } catch (error) {
-            console.error('Database error:', error);
-            res.status(500).json({ error: 'Failed to create account' });
+            console.error('Error creating account:', error); // Log the error for debugging
+            res.status(500).json({ error: 'Failed to create account: ' + error.message });
         }
     } else {
         res.setHeader('Allow', ['POST']);
