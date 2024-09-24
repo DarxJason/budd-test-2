@@ -66,7 +66,7 @@ function update() {
 }
 
 function createAccount() {
-    fetch('https://your-vercel-app.vercel.app/api/create-account', {
+    fetch('https://budd-test-2.vercel.app/api/create-account', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
     })
@@ -99,7 +99,7 @@ function login() {
         return;
     }
 
-    fetch('https://your-vercel-app.vercel.app/api/login', {
+    fetch('https://budd-test-2.vercel.app/api/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ loginCode: playerLoginCode })
@@ -123,7 +123,7 @@ function saveMovements() {
         return;
     }
 
-    fetch('https://your-vercel-app.vercel.app/api/update-movements', {
+    fetch('https://budd-test-2.vercel.app/api/update-movements', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -146,7 +146,7 @@ function getMovements() {
         return;
     }
 
-    fetch('https://your-vercel-app.vercel.app/api/get-movements', {
+    fetch('https://budd-test-2.vercel.app/api/get-movements', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ loginCode: playerLoginCode })
