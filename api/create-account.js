@@ -1,8 +1,9 @@
 // api/create-account.js
 import { Pool } from 'pg';
 
+// Initialize the PostgreSQL client
 const pool = new Pool({
-    connectionString: process.env.POSTGRES_URL, // Ensure this is set correctly in Vercel
+    connectionString: process.env.POSTGRES_URL, // Use the environment variable
 });
 
 export default async (req, res) => {
@@ -13,7 +14,7 @@ export default async (req, res) => {
     if (req.method === 'POST') {
         try {
             const loginCode = generateLoginCode(); // Function to generate a random login code
-
+            
             // Insert into the database
             await pool.query('INSERT INTO users (login_code) VALUES ($1)', [loginCode]);
 
