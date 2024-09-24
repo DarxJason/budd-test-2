@@ -1,24 +1,30 @@
-// /api/create-account.js (Serverless Function)
-const { Pool } = require('pg');
+// api/create-account.js
+import { Pool } from 'pg';
 
-// Connect to your Postgres database
 const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
+    connectionString: process.env.DATABASE_URL,
 });
 
-module.exports = async (req, res) => {
-  if (req.method === 'POST') {
-    const loginCode = Math.random().toString(36).substr(2, 10); // Generate 10-digit code
-    const query = 'INSERT INTO players (login_code, movements, created_at) VALUES ($1, $2, NOW()) RETURNING *';
+export default async (req, res) => {
+    if (req.method === 'POST') {
+        try {
+            const loginCode = generateLoginCode(); // Your function to generate a 10-digit code
+            // Optionally, save the login code in the database
 
-    try {
-      const result = await pool.query(query, [loginCode, '[]']); // Save an empty movements array initially
-      res.status(200).json({ loginCode: result.rows[0].login_code });
-    } catch (error) {
-      res.status(500).json({ error: 'Database error', details: error });
+            // Example query to save the login code (customize based on your DB schema)
+            await pool.query('INSERT INTO users (login_code) VALUES ($1)', [loginCode]);
+
+            res.status(200).json({ loginCode });
+        } catch (error) {
+            console.error('Database error:', error);
+            res.status(500).json({ error: 'Failed to create account' });
+        }
+    } else {
+        res.setHeader('Allow', ['POST']);
+        res.status(405).end(`Method ${req.method} Not Allowed`);
     }
-  } else {
-    res.status(405).send('Method Not Allowed');
-  }
 };
 
+function generateLoginCode() {
+    return Math.random().toString(36).substring(2, 12); // Generates a random 10-character string
+}
