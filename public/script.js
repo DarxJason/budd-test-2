@@ -70,14 +70,28 @@ function createAccount() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
     })
-    .then(response => response.json())
-    .then(data => {
-        playerLoginCode = data.loginCode;
-        console.log('Account created! Your login code:', playerLoginCode);
-        alert(`Account created! Your login code: ${playerLoginCode}`);
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok ' + response.statusText);
+        }
+        return response.json();
     })
-    .catch(error => console.error('Error:', error));
+    .then(data => {
+        if (data.loginCode) {
+            playerLoginCode = data.loginCode;
+            console.log('Account created! Your login code:', playerLoginCode);
+            alert(`Account created! Your login code: ${playerLoginCode}`);
+        } else {
+            console.error('Unexpected response:', data);
+            alert('Failed to create account: ' + (data.error || 'Unknown error'));
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Error creating account: ' + error.message);
+    });
 }
+
 
 function login() {
     if (!playerLoginCode) {
