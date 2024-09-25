@@ -214,5 +214,106 @@ const gameConfig = {
         alert('Error during login: ' + error.message);
     });
 }
+        const maxSpeed = 175;
+        const minSpeed = 0;
+        const stopDistance = 10;
+    
+        if (Phaser.Input.Keyboard.JustDown(this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.K))) {
+            this.useMouseControl = !this.useMouseControl;
+        }
+    
+        // Prepare player data to send to the server
+        const playerData = {
+            id: socket.id,
+            x: this.player.x,
+            y: this.player.y,
+            attacking: false // Implement attacking logic as needed
+        };
+    
+        socket.emit('playerUpdate', playerData); // Send the player data to the server every frame
+    
+        if (this.useMouseControl) {
+            const pointer = this.input.activePointer;
+            const dx = pointer.worldX - this.player.x;
+            const dy = pointer.worldY - this.player.y;
+            const angle = Math.atan2(dy, dx);
+            const distance = Math.sqrt(dx * dx + dy * dy);
+            let speed = maxSpeed;
+    
+            if (distance > stopDistance) {
+                if (distance < maxSpeed) {
+                    speed = Math.max(minSpeed, distance);
+                }
+    
+                const velocityX = (dx / distance) * speed;
+                const velocityY = (dy / distance) * speed;
+                this.player.setVelocity(velocityX, velocityY);
+            } else {
+                this.player.setVelocity(0);
+            }
+    
+            this.movementArrow.clear();
+            this.movementArrow.fillStyle(0x808080);
+    
+            const arrowheadSize = 20;
+            const arrowDistanceFromPlayer = 50;
+            const arrowheadX = this.player.x + Math.cos(angle) * arrowDistanceFromPlayer;
+            const arrowheadY = this.player.y + Math.sin(angle) * arrowDistanceFromPlayer;
+    
+            this.movementArrow.beginPath();
+            this.movementArrow.moveTo(arrowheadX, arrowheadY);
+            this.movementArrow.lineTo(arrowheadX - arrowheadSize * Math.cos(angle - Math.PI / 6), arrowheadY - arrowheadSize * Math.sin(angle - Math.PI / 6));
+            this.movementArrow.lineTo(arrowheadX - arrowheadSize * Math.cos(angle + Math.PI / 6), arrowheadY - arrowheadSize * Math.sin(angle + Math.PI / 6));
+            this.movementArrow.closePath();
+            this.movementArrow.fillPath();
+        } else {
+            this.player.setVelocity(0);
+    
+            if (this.keys.w.isDown || this.cursors.up.isDown) {
+                this.player.setVelocityY(-maxSpeed);
+            } else if (this.keys.s.isDown || this.cursors.down.isDown) {
+                this.player.setVelocityY(maxSpeed);
+            }
+    
+            if (this.keys.a.isDown || this.cursors.left.isDown) {
+                this.player.setVelocityX(-maxSpeed);
+            } else if (this.keys.d.isDown || this.cursors.right.isDown) {
+                this.player.setVelocityX(maxSpeed);
+            }
+    
+            this.movementArrow.clear();
+        }
+    
+        this.enemies.getChildren().forEach(enemy => {
+            let distance = Phaser.Math.Distance.Between(this.player.x, this.player.y, enemy.x, enemy.y);
+            let chaseRange = 550;
+    
+            if (distance < chaseRange) {
+                this.physics.moveToObject(enemy, this.player, 125);
+            } else {
+                enemy.setVelocity(enemy.wanderDirection.x * 50, enemy.wanderDirection.y * 50);
+            }
+    
+            if (enemy.body.velocity.x !== 0 || enemy.body.velocity.y !== 0) {
+                enemy.rotation = Math.atan2(enemy.body.velocity.y, enemy.body.velocity.x) + Math.PI / 2;
+            }
+    
+            enemy.healthBar.clear();
+            enemy.healthBar.fillStyle(0xff0000, 1);
+            enemy.healthBar.fillRect(enemy.x - 20, enemy.y - 35, 40, 5);
+            enemy.healthBar.fillStyle(0x00ff00, 1);
+            enemy.healthBar.fillRect(enemy.x - 20, enemy.y - 35, 40 * (enemy.currentHp / enemy.maxHp), 5);
+            enemy.rarityText.setPosition(enemy.x, enemy.y - 50);
+        });
+    
+        this.updateHpBar();
+    
+        this.bushes.getChildren().forEach(bush => {
+            bush.healthBar.clear();
+            bush.healthBar.fillStyle(0xff0000, 1);
+            bush.healthBar.fillRect(bush.x - 20, bush.y - 35, 40, 5);
+            bush.healthBar.fillStyle(0x00ff00, 1);
+            bush.healthBar.fillRect(bush.x - 20, bush.y - 35, 40 * (bush.currentHp / bush.maxHp), 5);
+        });
   }
 
