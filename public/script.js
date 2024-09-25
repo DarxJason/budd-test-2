@@ -4,7 +4,6 @@ const gameConfig = {
     width: window.innerWidth,
     height: window.innerHeight,
     pixelArt: true, 
-    scene: mainMap, 
     physics: {
         default: 'arcade',
         arcade: {
@@ -12,12 +11,12 @@ const gameConfig = {
             debug: false
         }
     },
-  scene: {
+    scene: {
       preload: preload,
       create: create,
       update: update
     }
-    };
+  };
     const game = new Phaser.Game(gameConfig);
     let player;
     let playerLoginCode = null; // Store the player's login code
