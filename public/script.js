@@ -73,7 +73,7 @@ const gameConfig = {
               if (data.loginCode) {
                   playerLoginCode = data.loginCode;
                   console.log('Account created! Your login code:', playerLoginCode);
-                  alert(Account created! Your login code: ${playerLoginCode});
+                  alert(`Account created! Your login code: ${playerLoginCode}`);
               } else {
                   console.error('Unexpected response:', data);
                   alert('Failed to create account: ' + (data.error || 'Unknown error'));
