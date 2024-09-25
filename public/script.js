@@ -85,28 +85,36 @@ const gameConfig = {
           });
       }
       function login() {
-          if (!playerLoginCode) {
-              alert("Please create an account first.");
+          // Ask for the player's login code using a prompt
+          const enteredCode = prompt("Enter your login code:");
+      
+          if (!enteredCode) {
+              alert("No code entered. Please try again.");
               return;
-            }
+          }
+      
+          // Send the entered login code to the server for verification
+          fetch('https://budd-test-2.vercel.app/api/login', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ loginCode: enteredCode })
+          })
+          .then(response => response.json())
+          .then(data => {
+              if (data.player) {
+                  console.log('Login successful!', data.player);
+                  alert('Success! You are now logged in.');
+              } else {
+                  console.error('Login failed:', data.error);
+                  alert('Fail! Incorrect login code.');
+              }
+          })
+          .catch(error => {
+              console.error('Error:', error);
+              alert('Error during login: ' + error.message);
+          });
+      }
 
-            fetch('https://budd-test-2.vercel.app/api/login', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ loginCode: playerLoginCode })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.player) {
-                    console.log('Login successful!', data.player);
-                    alert('Login successful!');
-                } else {
-                    console.error('Login failed:', data.error);
-                    alert('Login failed: ' + data.error);
-                }
-            })
-            .catch(error => console.error('Error:', error));
-        }
         function saveMovements() {
             if (!playerLoginCode) {
                 alert("Please create an account first.");
