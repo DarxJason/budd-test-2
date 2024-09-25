@@ -3,11 +3,11 @@ const gameConfig = {
   type: Phaser.AUTO,
     width: 800,
     height: 800,
-
+    
     physics: {
-        default: 'arcade',
+              default: 'arcade',
         arcade: {
-            fps: 60,
+            gravity: { y: 0 },
             debug: false
         }
     }
