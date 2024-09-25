@@ -1,15 +1,17 @@
 // public/script.js
 const gameConfig = {
   type: Phaser.AUTO,
-    width: 800,
-    height: 800,
+    width: window.innerWidth,
+    height: window.innerHeight,
+    pixelArt: true, 
+    scene: mainMap, 
     physics: {
         default: 'arcade',
         arcade: {
-            gravity: { y: 0 },
+            fps: 60,
             debug: false
         }
-  },
+    },
   scene: {
       preload: preload,
       create: create,
