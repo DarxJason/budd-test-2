@@ -735,3 +735,7 @@ export class mainMap extends Phaser.Scene {
     }
         }
 }
+
+export default mainMap;
+
+
