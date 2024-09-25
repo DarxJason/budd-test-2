@@ -31,8 +31,11 @@ export class mainMap extends Phaser.Scene {
         this.load.tilemapTiledJSON('maps', 'assets/map.json');
         this.load.image('tiles', 'assets/tiles.png');
         this.load.image('player', 'assets/flower.webp');
+        this.load.image('enemy', 'assets/mob/bee.svg');
+        this.load.image('yellow_ladybug', 'assets/shineyLadybug.png');
         this.load.image('petal', 'assets/petal.png');
         this.load.image('squareBud', 'assets/squareBud.png');
+        this.load.image('bush', 'assets/mob/bush.svg');
     }
     function create() {
              const map = this.add.tilemap('maps');
