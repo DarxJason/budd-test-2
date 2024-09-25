@@ -12,7 +12,7 @@ const gameConfig = {
             debug: false
         }
     }
-};,
+},
   scene: {
       preload: preload,
       create: create,
