@@ -1,9 +1,8 @@
 // api/create-account.js
-import { Pool } from 'pg';
+const { Pool } = require('pg');
 
-// Initialize the PostgreSQL client
 const pool = new Pool({
-    connectionString: process.env.POSTGRES_URL, // Use the environment variable
+  connectionString: process.env.DATABASE_URL,
 });
 
 export default async (req, res) => {
