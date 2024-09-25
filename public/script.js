@@ -3,7 +3,7 @@ const gameConfig = {
   type: Phaser.AUTO,
     width: window.innerWidth,
     height: window.innerHeight,
-    pixelArt: true, 
+   
     scene: mainMap, 
     physics: {
         default: 'arcade',
