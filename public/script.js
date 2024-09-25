@@ -770,3 +770,6 @@ const gameConfig = {
     chasePlayer(player, enemy) {
     }
 }
+
+export default mainMap;
+
