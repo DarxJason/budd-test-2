@@ -115,6 +115,7 @@ const gameConfig = {
     });
 }
 
+
         function saveMovements() {
             if (!playerLoginCode) {
                 alert("Please create an account first.");
