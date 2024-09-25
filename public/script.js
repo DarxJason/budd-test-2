@@ -21,6 +21,11 @@ const gameConfig = {
     const game = new Phaser.Game(gameConfig);
     let player;
     let playerLoginCode = null; // Store the player's login code
+
+export class mainMap extends Phaser.Scene {
+     constructor() {
+        super("mainMap");
+    }
     
     function preload() {
         this.load.tilemapTiledJSON('maps', 'assets/map.json');
@@ -729,3 +734,4 @@ const gameConfig = {
     chasePlayer(player, enemy) {
     }
         }
+}
