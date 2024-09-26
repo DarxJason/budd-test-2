@@ -85,8 +85,8 @@ export class mainMap extends Phaser.Scene {
         const groundLayer = map.createLayer('Map', tiles, 0, 0);
         const wallLayer = map.createLayer('Walls', tiles, 0, 0);
 
-        groundLayer.setScale(5);
-        wallLayer.setScale(5);
+        groundLayer.setScale(10);
+        wallLayer.setScale(10);
         this.useMouseControl = false;
         this.movementArrow = this.add.graphics();
         this.movementArrow.lineStyle(12, 0x808080);
