@@ -110,7 +110,7 @@ export class mainMap extends Phaser.Scene {
                 fill: '#0f0'
             })
             .setInteractive()
-            .on('pointerdown', createAccount);
+            .on('pointerdown', createAccount());
         // Button to login
         const loginButton = this.add.text(650, 50, 'Login', {
                 fill: '#00f'
