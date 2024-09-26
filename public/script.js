@@ -85,8 +85,8 @@ export class mainMap extends Phaser.Scene {
         const groundLayer = map.createLayer('Map', tiles, 0, 0);
         const wallLayer = map.createLayer('Walls', tiles, 0, 0);
 
-        groundLayer.setScale(15);
-        wallLayer.setScale(15);
+        groundLayer.setScale(1);
+        wallLayer.setScale(1);
         this.useMouseControl = false;
         this.movementArrow = this.add.graphics();
         this.movementArrow.lineStyle(12, 0x808080);
@@ -178,8 +178,8 @@ export class mainMap extends Phaser.Scene {
             .on('pointerdown', this.login.bind(this));
 
          // Ensure the buttons are rendered on top
-createButton.setDepth(10);
-loginButton.setDepth(10);
+        createButton.setDepth(100000);
+        loginButton.setDepth(1000000);
 
 
     }
