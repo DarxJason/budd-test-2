@@ -16,7 +16,69 @@ export class mainMap extends Phaser.Scene {
         this.load.image('bush', 'assets/mob/bush.svg');
     }
      
+ createAccount() {
+        fetch('https://budd-test-2.vercel.app/api/create-account', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.loginCode) {
+                    playerLoginCode = data.loginCode;
+                    console.log('Account created! Your login code:', playerLoginCode);
+                    alert(`Account created! Your login code: ${playerLoginCode}`);
+                } else {
+                    console.error('Unexpected response:', data);
+                    alert('Failed to create account: ' + (data.error || 'Unknown error'));
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error creating account: ' + error.message);
+            });
+    }
 
+      login() {
+        // Ask for the player's login code using a prompt
+        const enteredCode = prompt("Enter your login code:");
+
+        if (!enteredCode) {
+            alert("No code entered. Please try again.");
+            return;
+        }
+
+        // Send the entered login code to the server for verification
+        fetch('https://budd-test-2.vercel.app/api/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    loginCode: enteredCode
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.player) {
+                    console.log('Login successful!', data.player);
+                    alert('Success! You are now logged in.');
+                } else {
+                    console.error('Login failed:', data.error);
+                    alert('Fail! Incorrect login code.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error during login: ' + error.message);
+            });
+    }
      create() {
         const map = this.add.tilemap('maps');
         const tiles = map.addTilesetImage('tileset', 'tiles');
@@ -214,69 +276,6 @@ export class mainMap extends Phaser.Scene {
         });
     }
 
-         createAccount() {
-        fetch('https://budd-test-2.vercel.app/api/create-account', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok ' + response.statusText);
-                }
-                return response.json();
-            })
-            .then(data => {
-                if (data.loginCode) {
-                    playerLoginCode = data.loginCode;
-                    console.log('Account created! Your login code:', playerLoginCode);
-                    alert(`Account created! Your login code: ${playerLoginCode}`);
-                } else {
-                    console.error('Unexpected response:', data);
-                    alert('Failed to create account: ' + (data.error || 'Unknown error'));
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('Error creating account: ' + error.message);
-            });
-    }
-
-      login() {
-        // Ask for the player's login code using a prompt
-        const enteredCode = prompt("Enter your login code:");
-
-        if (!enteredCode) {
-            alert("No code entered. Please try again.");
-            return;
-        }
-
-        // Send the entered login code to the server for verification
-        fetch('https://budd-test-2.vercel.app/api/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    loginCode: enteredCode
-                })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.player) {
-                    console.log('Login successful!', data.player);
-                    alert('Success! You are now logged in.');
-                } else {
-                    console.error('Login failed:', data.error);
-                    alert('Fail! Incorrect login code.');
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('Error during login: ' + error.message);
-            });
-    }
 
     
      spawnBush(x, y, rarity) {
