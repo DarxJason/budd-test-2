@@ -747,11 +747,6 @@ const gameConfig = {
             fps: 60,
             debug: false
         }
-    },
-    scene: {
-        preload: preload,
-        create: create,
-        update: update
     }
 };
 const game = new Phaser.Game(gameConfig);
