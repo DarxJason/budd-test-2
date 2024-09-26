@@ -21,7 +21,6 @@ const gameConfig = {
 const game = new Phaser.Game(gameConfig);
 let player;
 let playerLoginCode = null; // Store the player's login code
-let movements = []; // Store player movements
 
 export class mainMap extends Phaser.Scene {
     constructor() {
@@ -140,12 +139,6 @@ export class mainMap extends Phaser.Scene {
             })
             .setInteractive()
             .on('pointerdown', login);
-        // Button to save movements
-        const saveButton = this.add.text(650, 80, 'Save Movements', {
-                fill: '#f00'
-            })
-            .setInteractive()
-            .on('pointerdown', saveMovements);
     }
 
     update() {
