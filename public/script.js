@@ -1,3 +1,5 @@
+const socket = io('https://budd-test-2.vercel.app');
+let players = {};  // Store all players
 
 let player;
 let playerLoginCode = null; // Store the player's login code
@@ -87,8 +89,6 @@ export class mainMap extends Phaser.Scene {
 
         groundLayer.setScale(15);
         wallLayer.setScale(15);
-const socket = io('https://budd-test-2.vercel.app');
-let players = {};  // Store all players
 
         this.otherPlayers = {};  // Initialize object to store other players
     
