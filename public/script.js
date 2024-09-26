@@ -182,19 +182,19 @@ export class mainMap extends Phaser.Scene {
 
             // Reposition the buttons and their backgrounds on resize
             createButton.buttonBg.clear();
-            createButton.buttonBg.fillStyle(0x0AFC4B, 0.8).fillRoundedRect(newWidth - createButton.buttonBg.width + 10, createButtonPosition, createButton.buttonBg.width, buttonHeight, cornerRadius);
+            createButton.buttonBg.fillStyle(0x0AFC4B, 0.8).fillRoundedRect(newWidth - createButton.buttonBg.width + 30, createButtonPosition, createButton.buttonBg.width, buttonHeight, cornerRadius);
             createButton.buttonBg.lineStyle(4, borderColor).strokeRoundedRect(newWidth - createButton.buttonBg.width - 30, createButtonPosition, createButton.buttonBg.width, buttonHeight, cornerRadius);
 
             // Center the text in the button
-            createButton.buttonText.setX(newWidth - createButton.buttonBg.width / 2 + 10);
+            createButton.buttonText.setX(newWidth - createButton.buttonBg.width / 2 + 30);
             createButton.buttonText.setY(createButtonPosition + buttonHeight / 2); // Center vertically
 
             loginButton.buttonBg.clear();
-            loginButton.buttonBg.fillStyle(0xFF3D3D, 0.8).fillRoundedRect(newWidth - loginButton.buttonBg.width + 10, loginButtonPosition, loginButton.buttonBg.width, buttonHeight, cornerRadius);
+            loginButton.buttonBg.fillStyle(0xFF3D3D, 0.8).fillRoundedRect(newWidth - loginButton.buttonBg.width + 30, loginButtonPosition, loginButton.buttonBg.width, buttonHeight, cornerRadius);
             loginButton.buttonBg.lineStyle(4, borderColor).strokeRoundedRect(newWidth - loginButton.buttonBg.width - 30, loginButtonPosition, loginButton.buttonBg.width, buttonHeight, cornerRadius);
 
             // Center the text in the button
-            loginButton.buttonText.setX(newWidth - loginButton.buttonBg.width / 2 + 10);
+            loginButton.buttonText.setX(newWidth - loginButton.buttonBg.width / 2 + 30);
             loginButton.buttonText.setY(loginButtonPosition + buttonHeight / 2); // Center vertically
         });
 
@@ -304,7 +304,7 @@ export class mainMap extends Phaser.Scene {
 
         // Button styles - Increased button dimensions
         const buttonWidth = textWidth + margin * 2 + 20; // Width with margins + extra for growth
-        const buttonHeight = textHeight + 10; // Height remains fixed + extra for growth
+        const buttonHeight = textHeight + 30; // Height remains fixed + extra for growth
         const cornerRadius = 10; // Border radius for rounded corners
         const borderColor = 0xffffff; // Border color (white)
         const borderWidth = 4; // Border width
@@ -312,13 +312,13 @@ export class mainMap extends Phaser.Scene {
         // Draw button background
         const buttonBg = this.add.graphics();
         buttonBg.fillStyle(backgroundColor, 0.8); // Semi-transparent background
-        buttonBg.fillRoundedRect(screenWidth - buttonWidth + 10, yPosition, buttonWidth, buttonHeight, cornerRadius); // Adjusted X position
+        buttonBg.fillRoundedRect(screenWidth - buttonWidth + 30, yPosition, buttonWidth, buttonHeight, cornerRadius); // Adjusted X position
         buttonBg.lineStyle(borderWidth, borderColor); // White border
-        buttonBg.strokeRoundedRect(screenWidth - buttonWidth + 10, yPosition, buttonWidth, buttonHeight, cornerRadius);
+        buttonBg.strokeRoundedRect(screenWidth - buttonWidth + 30, yPosition, buttonWidth, buttonHeight, cornerRadius);
         buttonBg.setScrollFactor(0).setDepth(9); // Ensure it's sticky and below the text
 
         // Create button text with the imported Google Font
-        const buttonText = this.add.text(screenWidth - buttonWidth / 2 + 10, yPosition + buttonHeight / 2, text, {
+        const buttonText = this.add.text(screenWidth - buttonWidth / 2 + 30, yPosition + buttonHeight / 2, text, {
                 font: '24px Moderustic', // Specify the font family here
                 fill: '#ffffff', // Text color (white for contrast)
                 align: 'center' // Center text alignment
