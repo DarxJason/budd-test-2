@@ -5,7 +5,7 @@ export class mainMap extends Phaser.Scene {
     constructor() {
         super("mainMap");
     }
- 
+  
     preload() {
         this.load.tilemapTiledJSON('maps', 'assets/map.json');
         this.load.image('tiles', 'assets/tiles.png');
@@ -14,7 +14,7 @@ export class mainMap extends Phaser.Scene {
         this.load.image('squareBud', 'assets/squareBud.png');
         this.load.image('bush', 'assets/mob/bush.svg');
     }
-
+ 
     createAccount() {
         fetch('https://budd-test-2.vercel.app/api/create-account', {
                 method: 'POST',
@@ -169,9 +169,9 @@ export class mainMap extends Phaser.Scene {
             loop: true
         });
 
-            // Create the buttons using the new function with separate background colors
+        // Create the buttons using the new function with separate background colors
         const createButtonPosition = 20;
-        const loginButtonPosition = createButtonPosition + 70; // Adjust the spacing between buttons
+        const loginButtonPosition = 60;
 
         const createButton = this.createButton('Create Account', createButtonPosition, this.createAccount, 0x0AFC4B); // Green background
         const loginButton = this.createButton('Login', loginButtonPosition, this.login, 0xFF3D3D); // Red background
@@ -182,19 +182,19 @@ export class mainMap extends Phaser.Scene {
 
             // Reposition the buttons and their backgrounds on resize
             createButton.buttonBg.clear();
-            createButton.buttonBg.fillStyle(0x0AFC4B, 0.8).fillRoundedRect(newWidth - createButton.buttonBg.width - 20, createButtonPosition, createButton.buttonBg.width, buttonHeight, cornerRadius);
-            createButton.buttonBg.lineStyle(4, borderColor).strokeRoundedRect(newWidth - createButton.buttonBg.width - 20, createButtonPosition, createButton.buttonBg.width, buttonHeight, cornerRadius);
+            createButton.buttonBg.fillStyle(0x0AFC4B, 0.8).fillRoundedRect(newWidth - createButton.buttonBg.width + 130, createButtonPosition, createButton.buttonBg.width, buttonHeight, cornerRadius);
+            createButton.buttonBg.lineStyle(4, borderColor).strokeRoundedRect(newWidth - createButton.buttonBg.width - 30, createButtonPosition, createButton.buttonBg.width, buttonHeight, cornerRadius);
 
             // Center the text in the button
-            createButton.buttonText.setX(newWidth - createButton.buttonBg.width / 2);
+            createButton.buttonText.setX(newWidth - createButton.buttonBg.width / 2 + 130);
             createButton.buttonText.setY(createButtonPosition + buttonHeight / 2); // Center vertically
 
             loginButton.buttonBg.clear();
-            loginButton.buttonBg.fillStyle(0xFF3D3D, 0.8).fillRoundedRect(newWidth - loginButton.buttonBg.width - 20, loginButtonPosition, loginButton.buttonBg.width, buttonHeight, cornerRadius);
-            loginButton.buttonBg.lineStyle(4, borderColor).strokeRoundedRect(newWidth - loginButton.buttonBg.width - 20, loginButtonPosition, loginButton.buttonBg.width, buttonHeight, cornerRadius);
+            loginButton.buttonBg.fillStyle(0xFF3D3D, 0.8).fillRoundedRect(newWidth - loginButton.buttonBg.width + 130, loginButtonPosition, loginButton.buttonBg.width, buttonHeight, cornerRadius);
+            loginButton.buttonBg.lineStyle(4, borderColor).strokeRoundedRect(newWidth - loginButton.buttonBg.width - 30, loginButtonPosition, loginButton.buttonBg.width, buttonHeight, cornerRadius);
 
             // Center the text in the button
-            loginButton.buttonText.setX(newWidth - loginButton.buttonBg.width / 2);
+            loginButton.buttonText.setX(newWidth - loginButton.buttonBg.width / 2 + 130);
             loginButton.buttonText.setY(loginButtonPosition + buttonHeight / 2); // Center vertically
         });
 
@@ -293,52 +293,52 @@ export class mainMap extends Phaser.Scene {
         });
     }
 
-    // Function to create buttons with auto-fitting width and height
-    createButton(text, yPosition, callback, backgroundColor) {
-        const screenWidth = this.scale.width;
-
-        // Calculate button dimensions based on text size
-        const textWidth = this.getTextWidth(text, '24px Moderustic'); // Use the imported Google Font
-        const textHeight = 30;  // Fixed height for uniformity
-        const margin = 20;  // Increased margin around the text for padding
+          // Function to create buttons with auto-fitting width and height
+          createButton(text, yPosition, callback, backgroundColor) {
+            const screenWidth = this.scale.width;
         
-        // Button styles
-        const buttonWidth = textWidth + margin * 2;  // Width with increased margins based on text size
-        const buttonHeight = textHeight + margin;  // Increased height to provide more vertical padding
-        const cornerRadius = 10;  // Border radius for rounded corners
-        const borderColor = 0xffffff;  // Border color (white)
-        const borderWidth = 4;  // Border width
+            // Calculate button dimensions based on text size
+            const textWidth = this.getTextWidth(text, '24px Moderustic'); // Use the imported Google Font
+            const textHeight = 30;  // Fixed height for uniformity
+            const margin = 10;  // Margin around the text
+        
+            // Button styles
+            const buttonWidth = textWidth + margin * 2;  // Width with margins based on text size
+            const buttonHeight = textHeight;  // Fixed height
+            const cornerRadius = 10;  // Border radius for rounded corners
+            const borderColor = 0xffffff;  // Border color (white)
+            const borderWidth = 4;  // Border width
+        
+            // Draw button background
+            const buttonBg = this.add.graphics();
+            buttonBg.fillStyle(backgroundColor, 0.8);  // Semi-transparent background
+            buttonBg.fillRoundedRect(screenWidth - buttonWidth + 130, yPosition, buttonWidth, buttonHeight, cornerRadius); // Align to the right with some padding
+            buttonBg.lineStyle(borderWidth, borderColor);  // White border
+            buttonBg.strokeRoundedRect(screenWidth - buttonWidth + 130, yPosition, buttonWidth, buttonHeight, cornerRadius);
+            buttonBg.setScrollFactor(0).setDepth(9);  // Ensure it's sticky and below the text
+        
+            // Create button text with the imported Google Font
+            const buttonText = this.add.text(screenWidth - buttonWidth / 2 + 130, yPosition + buttonHeight / 2, text, { 
+                font: '24px Moderustic',  // Specify the font family here
+                fill: '#ffffff', // Text color (white for contrast)
+                align: 'center' // Center text alignment
+            })
+            .setInteractive()
+            .on('pointerdown', callback.bind(this))
+            .setScrollFactor(0)
+            .setDepth(10)  // Ensure the text is on top of the background
+            .setOrigin(0.5, 0.5); // Center the text based on its origin
+        
+            return { buttonBg, buttonText };
+        }
 
-        // Draw button background
-        const buttonBg = this.add.graphics();
-        buttonBg.fillStyle(backgroundColor, 0.8);  // Semi-transparent background
-        buttonBg.fillRoundedRect(screenWidth - buttonWidth - 20, yPosition, buttonWidth, buttonHeight, cornerRadius); // Align to the right with padding
-        buttonBg.lineStyle(borderWidth, borderColor);  // White border
-        buttonBg.strokeRoundedRect(screenWidth - buttonWidth - 20, yPosition, buttonWidth, buttonHeight, cornerRadius);
-        buttonBg.setScrollFactor(0).setDepth(9);  // Ensure it's sticky and below the text
-
-        // Create button text with the imported Google Font
-        const buttonText = this.add.text(screenWidth - buttonWidth / 2, yPosition + buttonHeight / 2, text, { 
-            font: '24px Moderustic',  // Specify the font family here
-            fill: '#ffffff', // Text color (white for contrast)
-            align: 'center' // Center text alignment
-        })
-        .setInteractive()
-        .on('pointerdown', callback.bind(this))
-        .setScrollFactor(0)
-        .setDepth(10)  // Ensure the text is on top of the background
-        .setOrigin(0.5, 0.5); // Center the text based on its origin
-
-        return { buttonBg, buttonText };
-    }
-
-    // Helper function to get text width
-    getTextWidth(text, font) {
-        const canvas = document.createElement('canvas');
-        const context = canvas.getContext('2d');
-        context.font = font;
-        return context.measureText(text).width;
-    }
+        // Helper function to get text width
+        getTextWidth(text, font) {
+            const canvas = document.createElement('canvas');
+            const context = canvas.getContext('2d');
+            context.font = font;
+            return context.measureText(text).width;
+        }
 
 
     spawnBush(x, y, rarity) {
