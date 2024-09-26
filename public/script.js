@@ -185,9 +185,9 @@ export class mainMap extends Phaser.Scene {
     // Draw the "Create Account" button background
     const createButtonBg = this.add.graphics();
     createButtonBg.fillStyle(backgroundColor, 0.8);  // Semi-transparent background (50% opacity)
-    createButtonBg.fillRoundedRect(screenWidth - buttonWidth - 20, 20, buttonWidth, buttonHeight, cornerRadius);
+    createButtonBg.fillRoundedRect(screenWidth - buttonWidth - 20, 0, buttonWidth, buttonHeight, cornerRadius);
     createButtonBg.lineStyle(borderWidth, borderColor);  // White border
-    createButtonBg.strokeRoundedRect(screenWidth - buttonWidth - 20, 20, buttonWidth, buttonHeight, cornerRadius);
+    createButtonBg.strokeRoundedRect(screenWidth - buttonWidth - 20, 0, buttonWidth, buttonHeight, cornerRadius);
     createButtonBg.setScrollFactor(0).setDepth(9);  // Ensure it's sticky and below the text
 
     // Create the "Create Account" button text
@@ -218,8 +218,8 @@ export class mainMap extends Phaser.Scene {
 
         // Re-position the buttons and their backgrounds on resize
         createButtonBg.clear();  // Clear the previous graphics
-        createButtonBg.fillStyle(backgroundColor, 0.8).fillRoundedRect(newWidth - buttonWidth - 20, 20, buttonWidth, buttonHeight, cornerRadius);
-        createButtonBg.lineStyle(borderWidth, borderColor).strokeRoundedRect(newWidth - buttonWidth - 20, 20, buttonWidth, buttonHeight, cornerRadius);
+        createButtonBg.fillStyle(backgroundColor, 0.8).fillRoundedRect(newWidth - buttonWidth - 20, 0, buttonWidth, buttonHeight, cornerRadius);
+        createButtonBg.lineStyle(borderWidth, borderColor).strokeRoundedRect(newWidth - buttonWidth - 20, 0, buttonWidth, buttonHeight, cornerRadius);
 
         loginButtonBg.clear();  // Clear the previous graphics
         loginButtonBg.fillStyle(backgroundColor, 0.8).fillRoundedRect(newWidth - buttonWidth - 20, 90, buttonWidth, buttonHeight, cornerRadius);
