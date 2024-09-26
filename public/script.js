@@ -171,72 +171,66 @@ export class mainMap extends Phaser.Scene {
         });
 
 
-// Create the buttons using the new function
-const createButtonPosition = 20;
-const loginButtonPosition = 90;
-
-const createButton = this.createButton('Create Account', createButtonPosition, this.createAccount);
-const loginButton = this.createButton('Login', loginButtonPosition, this.login);
-
-// Handle screen resizing to reposition the buttons
-this.scale.on('resize', (gameSize) => {
-    const newWidth = gameSize.width;
-
-    // Reposition the buttons and their backgrounds on resize
-    createButton.buttonBg.clear();
-    createButton.buttonBg.fillStyle(backgroundColor, 0.5).fillRoundedRect(newWidth - createButton.buttonBg.width - 20, createButtonPosition, createButton.buttonBg.width, buttonHeight, cornerRadius);
-    createButton.buttonBg.lineStyle(borderWidth, borderColor).strokeRoundedRect(newWidth - createButton.buttonBg.width - 20, createButtonPosition, createButton.buttonBg.width, buttonHeight, cornerRadius);
-
-    createButton.buttonText.setX(newWidth - createButton.buttonBg.width - margin);
-    
-    loginButton.buttonBg.clear();
-    loginButton.buttonBg.fillStyle(backgroundColor, 0.5).fillRoundedRect(newWidth - loginButton.buttonBg.width - 20, loginButtonPosition, loginButton.buttonBg.width, buttonHeight, cornerRadius);
-    loginButton.buttonBg.lineStyle(borderWidth, borderColor).strokeRoundedRect(newWidth - loginButton.buttonBg.width - 20, loginButtonPosition, loginButton.buttonBg.width, buttonHeight, cornerRadius);
-    
-    loginButton.buttonText.setX(newWidth - loginButton.buttonBg.width - margin);
-});
-
-// Helper function to get text width
-getTextWidth(text, font) {
-    const canvas = document.createElement('canvas');
-    const context = canvas.getContext('2d');
-    context.font = font;
-    return context.measureText(text).width;
-}
-
-    }
-       // Function to create buttons with auto-fitting width and height
-createButton(text, yPosition, callback) {
-    // Calculate button dimensions based on text size
-    const textWidth = this.getTextWidth(text, '24px');
-    const textHeight = 50;  // Set a fixed height for uniformity
-    const margin = 10;  // Margin around the text
+  const screenWidth = this.scale.width;
+    const screenHeight = this.scale.height;
 
     // Button styles
-    const buttonWidth = textWidth + margin * 2;  // Width with margins
-    const buttonHeight = textHeight;  // Height remains fixed
+    const buttonWidth = 250;
+    const buttonHeight = 50;
     const cornerRadius = 10;  // Border radius for rounded corners
     const backgroundColor = 0x000000;  // Background color (black)
     const borderColor = 0xffffff;  // Border color (white)
     const borderWidth = 4;  // Border width
 
-    // Draw button background
-    const buttonBg = this.add.graphics();
-    buttonBg.fillStyle(backgroundColor, 0.5);  // Semi-transparent background (50% opacity)
-    buttonBg.fillRoundedRect(screenWidth - buttonWidth - 20, yPosition, buttonWidth, buttonHeight, cornerRadius);
-    buttonBg.lineStyle(borderWidth, borderColor);  // White border
-    buttonBg.strokeRoundedRect(screenWidth - buttonWidth - 20, yPosition, buttonWidth, buttonHeight, cornerRadius);
-    buttonBg.setScrollFactor(0).setDepth(9);  // Ensure it's sticky and below the text
+    // Draw the "Create Account" button background
+    const createButtonBg = this.add.graphics();
+    createButtonBg.fillStyle(backgroundColor, 0.8);  // Semi-transparent background (50% opacity)
+    createButtonBg.fillRoundedRect(screenWidth - buttonWidth - 20, 20, buttonWidth, buttonHeight, cornerRadius);
+    createButtonBg.lineStyle(borderWidth, borderColor);  // White border
+    createButtonBg.strokeRoundedRect(screenWidth - buttonWidth - 20, 20, buttonWidth, buttonHeight, cornerRadius);
+    createButtonBg.setScrollFactor(0).setDepth(9);  // Ensure it's sticky and below the text
 
-    // Create button text
-    const buttonText = this.add.text(screenWidth - buttonWidth - margin, yPosition + margin / 2, text, { fontSize: '24px', fill: '#0f0' })
+    // Create the "Create Account" button text
+    const createButtonText = this.add.text(screenWidth - buttonWidth - 10, 30, 'Create Account', { fontSize: '24px', fill: '#0f0' })
         .setInteractive()
-        .on('pointerdown', callback.bind(this))
+        .on('pointerdown', this.createAccount.bind(this))
         .setScrollFactor(0)
         .setDepth(10);  // Ensure the text is on top of the background
 
-    return { buttonBg, buttonText };
-}
+    // Draw the "Login" button background
+    const loginButtonBg = this.add.graphics();
+    loginButtonBg.fillStyle(backgroundColor, 0.8);  // Semi-transparent background (50% opacity)
+    loginButtonBg.fillRoundedRect(screenWidth - buttonWidth - 20, 90, buttonWidth, buttonHeight, cornerRadius);
+    loginButtonBg.lineStyle(borderWidth, borderColor);  // White border
+    loginButtonBg.strokeRoundedRect(screenWidth - buttonWidth - 20, 90, buttonWidth, buttonHeight, cornerRadius);
+    loginButtonBg.setScrollFactor(0).setDepth(9);  // Ensure it's sticky and below the text
+
+    // Create the "Login" button text
+    const loginButtonText = this.add.text(screenWidth - buttonWidth - 10, 100, 'Login', { fontSize: '24px', fill: '#00f' })
+        .setInteractive()
+        .on('pointerdown', this.login.bind(this))
+        .setScrollFactor(0)
+        .setDepth(10);  // Ensure the text is on top of the background
+
+    // Handle screen resizing to reposition the buttons
+    this.scale.on('resize', (gameSize, baseSize, displaySize, resolution) => {
+        const newWidth = gameSize.width;
+
+        // Re-position the buttons and their backgrounds on resize
+        createButtonBg.clear();  // Clear the previous graphics
+        createButtonBg.fillStyle(backgroundColor, 0.8).fillRoundedRect(newWidth - buttonWidth - 20, 20, buttonWidth, buttonHeight, cornerRadius);
+        createButtonBg.lineStyle(borderWidth, borderColor).strokeRoundedRect(newWidth - buttonWidth - 20, 20, buttonWidth, buttonHeight, cornerRadius);
+
+        loginButtonBg.clear();  // Clear the previous graphics
+        loginButtonBg.fillStyle(backgroundColor, 0.8).fillRoundedRect(newWidth - buttonWidth - 20, 90, buttonWidth, buttonHeight, cornerRadius);
+        loginButtonBg.lineStyle(borderWidth, borderColor).strokeRoundedRect(newWidth - buttonWidth - 20, 90, buttonWidth, buttonHeight, cornerRadius);
+
+        createButtonText.setX(newWidth - buttonWidth - 10);
+        loginButtonText.setX(newWidth - buttonWidth - 10);
+    });
+
+    }
+
      update() {
         const maxSpeed = 175;
         const minSpeed = 0;
