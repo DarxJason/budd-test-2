@@ -14,7 +14,7 @@ export class mainMap extends Phaser.Scene {
         this.load.image('squareBud', 'assets/squareBud.png');
         this.load.image('bush', 'assets/mob/bush.svg');
     }
-
+ 
     createAccount() {
         fetch('https://budd-test-2.vercel.app/api/create-account', {
                 method: 'POST',
