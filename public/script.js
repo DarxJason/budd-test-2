@@ -169,7 +169,6 @@ export class mainMap extends Phaser.Scene {
             loop: true
         });
 
-
 // Create the buttons using the new function with separate background colors
 const createButtonPosition = 20;
 const loginButtonPosition = 90;
@@ -294,7 +293,7 @@ this.scale.on('resize', (gameSize) => {
         });
     }
 
-    // Function to create buttons with auto-fitting width and height
+   // Function to create buttons with auto-fitting width and height
 createButton(text, yPosition, callback, backgroundColor) {
     const screenWidth = this.scale.width;
 
@@ -303,9 +302,9 @@ createButton(text, yPosition, callback, backgroundColor) {
     const textHeight = 50;  // Set a fixed height for uniformity
     const margin = 10;  // Margin around the text
 
-    // Button styles
-    const buttonWidth = textWidth + margin * 2;  // Width with margins
-    const buttonHeight = textHeight;  // Height remains fixed
+    // Button styles - Increased button dimensions
+    const buttonWidth = textWidth + margin * 2 + 20;  // Width with margins + extra for growth
+    const buttonHeight = textHeight + 10;  // Height remains fixed + extra for growth
     const cornerRadius = 10;  // Border radius for rounded corners
     const borderColor = 0xffffff;  // Border color (white)
     const borderWidth = 4;  // Border width
@@ -319,7 +318,7 @@ createButton(text, yPosition, callback, backgroundColor) {
     buttonBg.setScrollFactor(0).setDepth(9);  // Ensure it's sticky and below the text
 
     // Create button text with the imported Google Font
-    const buttonText = this.add.text(screenWidth - buttonWidth - margin, yPosition + buttonHeight / 2, text, { 
+    const buttonText = this.add.text(screenWidth - buttonWidth / 2 - 30, yPosition + buttonHeight / 2, text, { 
         font: '24px Moderustic',  // Specify the font family here
         fill: '#ffffff', // Text color (white for contrast)
         align: 'center' // Center text alignment
