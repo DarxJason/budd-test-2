@@ -182,19 +182,19 @@ export class mainMap extends Phaser.Scene {
 
             // Reposition the buttons and their backgrounds on resize
             createButton.buttonBg.clear();
-            createButton.buttonBg.fillStyle(0x0AFC4B, 0.8).fillRoundedRect(newWidth - createButton.buttonBg.width + 130, createButtonPosition, createButton.buttonBg.width, buttonHeight, cornerRadius);
+            createButton.buttonBg.fillStyle(0x0AFC4B, 0.8).fillRoundedRect(newWidth - createButton.buttonBg.width + 140, createButtonPosition, createButton.buttonBg.width, buttonHeight, cornerRadius);
             createButton.buttonBg.lineStyle(4, borderColor).strokeRoundedRect(newWidth - createButton.buttonBg.width - 30, createButtonPosition, createButton.buttonBg.width, buttonHeight, cornerRadius);
 
             // Center the text in the button
-            createButton.buttonText.setX(newWidth - createButton.buttonBg.width / 2 + 130);
+            createButton.buttonText.setX(newWidth - createButton.buttonBg.width / 2 + 140);
             createButton.buttonText.setY(createButtonPosition + buttonHeight / 2); // Center vertically
 
             loginButton.buttonBg.clear();
-            loginButton.buttonBg.fillStyle(0xFF3D3D, 0.8).fillRoundedRect(newWidth - loginButton.buttonBg.width + 130, loginButtonPosition, loginButton.buttonBg.width, buttonHeight, cornerRadius);
+            loginButton.buttonBg.fillStyle(0xFF3D3D, 0.8).fillRoundedRect(newWidth - loginButton.buttonBg.width + 140, loginButtonPosition, loginButton.buttonBg.width, buttonHeight, cornerRadius);
             loginButton.buttonBg.lineStyle(4, borderColor).strokeRoundedRect(newWidth - loginButton.buttonBg.width - 30, loginButtonPosition, loginButton.buttonBg.width, buttonHeight, cornerRadius);
 
             // Center the text in the button
-            loginButton.buttonText.setX(newWidth - loginButton.buttonBg.width / 2 + 130);
+            loginButton.buttonText.setX(newWidth - loginButton.buttonBg.width / 2 + 140);
             loginButton.buttonText.setY(loginButtonPosition + buttonHeight / 2); // Center vertically
         });
 
@@ -312,13 +312,13 @@ export class mainMap extends Phaser.Scene {
             // Draw button background
             const buttonBg = this.add.graphics();
             buttonBg.fillStyle(backgroundColor, 0.8);  // Semi-transparent background
-            buttonBg.fillRoundedRect(screenWidth - buttonWidth + 130, yPosition, buttonWidth, buttonHeight, cornerRadius); // Align to the right with some padding
+            buttonBg.fillRoundedRect(screenWidth - buttonWidth + 140, yPosition, buttonWidth, buttonHeight, cornerRadius); // Align to the right with some padding
             buttonBg.lineStyle(borderWidth, borderColor);  // White border
-            buttonBg.strokeRoundedRect(screenWidth - buttonWidth + 130, yPosition, buttonWidth, buttonHeight, cornerRadius);
+            buttonBg.strokeRoundedRect(screenWidth - buttonWidth + 140, yPosition, buttonWidth, buttonHeight, cornerRadius);
             buttonBg.setScrollFactor(0).setDepth(9);  // Ensure it's sticky and below the text
         
             // Create button text with the imported Google Font
-            const buttonText = this.add.text(screenWidth - buttonWidth / 2 + 130, yPosition + buttonHeight / 2, text, { 
+            const buttonText = this.add.text(screenWidth - buttonWidth / 2 + 140, yPosition + buttonHeight / 2, text, { 
                 font: '24px Moderustic',  // Specify the font family here
                 fill: '#ffffff', // Text color (white for contrast)
                 align: 'center' // Center text alignment
