@@ -171,7 +171,7 @@ export class mainMap extends Phaser.Scene {
 
         // Create the buttons using the new function with separate background colors
         const createButtonPosition = 20;
-        const loginButtonPosition = 90;
+        const loginButtonPosition = 40;
 
         const createButton = this.createButton('Create Account', createButtonPosition, this.createAccount, 0x0AFC4B); // Green background
         const loginButton = this.createButton('Login', loginButtonPosition, this.login, 0xFF3D3D); // Red background
@@ -300,7 +300,7 @@ export class mainMap extends Phaser.Scene {
             // Calculate button dimensions based on text size
             const textWidth = this.getTextWidth(text, '24px Moderustic'); // Use the imported Google Font
             const textHeight = 25;  // Fixed height for uniformity
-            const margin = 5;  // Margin around the text
+            const margin = 10;  // Margin around the text
         
             // Button styles
             const buttonWidth = textWidth + margin * 2;  // Width with margins based on text size
