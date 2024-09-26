@@ -170,36 +170,63 @@ export class mainMap extends Phaser.Scene {
             loop: true
         });
 
-       // Set button positions based on the screen width and height
-    const screenWidth = this.scale.width;  // Get the screen width
-    const screenHeight = this.scale.height;  // Get the screen height
+         const screenWidth = this.scale.width;
+    const screenHeight = this.scale.height;
 
-    // Create the "Create Account" button
-    const createButton = this.add.text(screenWidth - 200, 20, 'Create Account', { fontSize: '32px', fill: '#0f0' })
+    // Button styles
+    const buttonWidth = 180;
+    const buttonHeight = 50;
+    const cornerRadius = 10;  // Border radius for rounded corners
+    const backgroundColor = 0x000000;  // Background color (black)
+    const borderColor = 0xffffff;  // Border color (white)
+    const borderWidth = 4;  // Border width
+
+    // Draw the "Create Account" button background
+    const createButtonBg = this.add.graphics();
+    createButtonBg.fillStyle(backgroundColor, 0.5);  // Semi-transparent background (50% opacity)
+    createButtonBg.fillRoundedRect(screenWidth - buttonWidth - 20, 20, buttonWidth, buttonHeight, cornerRadius);
+    createButtonBg.lineStyle(borderWidth, borderColor);  // White border
+    createButtonBg.strokeRoundedRect(screenWidth - buttonWidth - 20, 20, buttonWidth, buttonHeight, cornerRadius);
+    createButtonBg.setScrollFactor(0).setDepth(9);  // Ensure it's sticky and below the text
+
+    // Create the "Create Account" button text
+    const createButtonText = this.add.text(screenWidth - buttonWidth - 10, 30, 'Create Account', { fontSize: '24px', fill: '#0f0' })
         .setInteractive()
         .on('pointerdown', this.createAccount.bind(this))
-        .setScrollFactor(0)  // Make it sticky (won't move with camera)
-        .setDepth(10);  // Ensure it's always on top
+        .setScrollFactor(0)
+        .setDepth(10);  // Ensure the text is on top of the background
 
-    // Create the "Login" button
-    const loginButton = this.add.text(screenWidth - 200, 80, 'Login', { fontSize: '32px', fill: '#00f' })
+    // Draw the "Login" button background
+    const loginButtonBg = this.add.graphics();
+    loginButtonBg.fillStyle(backgroundColor, 0.5);  // Semi-transparent background (50% opacity)
+    loginButtonBg.fillRoundedRect(screenWidth - buttonWidth - 20, 90, buttonWidth, buttonHeight, cornerRadius);
+    loginButtonBg.lineStyle(borderWidth, borderColor);  // White border
+    loginButtonBg.strokeRoundedRect(screenWidth - buttonWidth - 20, 90, buttonWidth, buttonHeight, cornerRadius);
+    loginButtonBg.setScrollFactor(0).setDepth(9);  // Ensure it's sticky and below the text
+
+    // Create the "Login" button text
+    const loginButtonText = this.add.text(screenWidth - buttonWidth - 10, 100, 'Login', { fontSize: '24px', fill: '#00f' })
         .setInteractive()
         .on('pointerdown', this.login.bind(this))
-        .setScrollFactor(0)  // Make it sticky (won't move with camera)
-        .setDepth(10);  // Ensure it's always on top
+        .setScrollFactor(0)
+        .setDepth(10);  // Ensure the text is on top of the background
 
-         // Ensure the buttons are rendered on top
-        createButton.setDepth(100000);
-        loginButton.setDepth(1000000);
-
-          this.scale.on('resize', (gameSize, baseSize, displaySize, resolution) => {
+    // Handle screen resizing to reposition the buttons
+    this.scale.on('resize', (gameSize, baseSize, displaySize, resolution) => {
         const newWidth = gameSize.width;
 
-        // Re-position the buttons on resize
-        createButton.setX(newWidth - 200);
-        loginButton.setX(newWidth - 200);
-    });
+        // Re-position the buttons and their backgrounds on resize
+        createButtonBg.clear();  // Clear the previous graphics
+        createButtonBg.fillStyle(backgroundColor, 0.5).fillRoundedRect(newWidth - buttonWidth - 20, 20, buttonWidth, buttonHeight, cornerRadius);
+        createButtonBg.lineStyle(borderWidth, borderColor).strokeRoundedRect(newWidth - buttonWidth - 20, 20, buttonWidth, buttonHeight, cornerRadius);
 
+        loginButtonBg.clear();  // Clear the previous graphics
+        loginButtonBg.fillStyle(backgroundColor, 0.5).fillRoundedRect(newWidth - buttonWidth - 20, 90, buttonWidth, buttonHeight, cornerRadius);
+        loginButtonBg.lineStyle(borderWidth, borderColor).strokeRoundedRect(newWidth - buttonWidth - 20, 90, buttonWidth, buttonHeight, cornerRadius);
+
+        createButtonText.setX(newWidth - buttonWidth - 10);
+        loginButtonText.setX(newWidth - buttonWidth - 10);
+    });
 
     }
 
