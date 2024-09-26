@@ -307,7 +307,7 @@ export class mainMap extends Phaser.Scene {
 
         // Draw button background
         const buttonBg = this.add.graphics();
-        buttonBg.fillStyle(backgroundColor, 0.5);  // Semi-transparent background
+        buttonBg.fillStyle(backgroundColor, 0.8);  // Semi-transparent background
         buttonBg.fillRoundedRect(screenWidth - buttonWidth - 20, yPosition, buttonWidth, buttonHeight, cornerRadius);
         buttonBg.lineStyle(borderWidth, borderColor);  // White border
         buttonBg.strokeRoundedRect(screenWidth - buttonWidth - 20, yPosition, buttonWidth, buttonHeight, cornerRadius);
@@ -315,7 +315,7 @@ export class mainMap extends Phaser.Scene {
 
         // Create button text with the imported Google Font
         const buttonText = this.add.text(screenWidth - buttonWidth - margin, yPosition + margin / 2, text, { 
-            font: '24px Roboto',  // Specify the font family here
+            font: '24px Nabla',  // Specify the font family here
             fill: '#ffffff' // Text color (white for contrast)
         })
         .setInteractive()
