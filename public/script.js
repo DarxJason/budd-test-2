@@ -293,47 +293,44 @@ export class mainMap extends Phaser.Scene {
         });
     }
 
-    // Function to create buttons with auto-fitting width and height
-    createButton(text, yPosition, callback, backgroundColor) {
-        const screenWidth = this.scale.width;
-
-        // Calculate button dimensions based on text size
-        const textWidth = this.getTextWidth(text, '24px Moderustic'); // Use the imported Google Font
-        const textHeight = 50; // Set a fixed height for uniformity
-        const margin = 10; // Margin around the text
-
-        // Button styles - Increased button dimensions
-        const buttonWidth = textWidth + margin * 2 + 20; // Width with margins + extra for growth
-        const buttonHeight = textHeight + 50; // Height remains fixed + extra for growth
-        const cornerRadius = 10; // Border radius for rounded corners
-        const borderColor = 0xffffff; // Border color (white)
-        const borderWidth = 4; // Border width
-
-        // Draw button background
-        const buttonBg = this.add.graphics();
-        buttonBg.fillStyle(backgroundColor, 0.8); // Semi-transparent background
-        buttonBg.fillRoundedRect(screenWidth - buttonWidth + 100, yPosition, buttonWidth, buttonHeight, cornerRadius); // Adjusted X position
-        buttonBg.lineStyle(borderWidth, borderColor); // White border
-        buttonBg.strokeRoundedRect(screenWidth - buttonWidth + 100, yPosition, buttonWidth, buttonHeight, cornerRadius);
-        buttonBg.setScrollFactor(0).setDepth(9); // Ensure it's sticky and below the text
-
-        // Create button text with the imported Google Font
-        const buttonText = this.add.text(screenWidth - buttonWidth / 2 - 30, yPosition + buttonHeight / 2, text, {
-                font: '24px Moderustic', // Specify the font family here
+           // Function to create buttons with auto-fitting width and height
+        createButton(text, yPosition, callback, backgroundColor) {
+            const screenWidth = this.scale.width;
+        
+            // Calculate button dimensions based on text size
+            const textWidth = this.getTextWidth(text, '24px Moderustic'); // Use the imported Google Font
+            const textHeight = 50;  // Fixed height for uniformity
+            const margin = 10;  // Margin around the text
+        
+            // Button styles
+            const buttonWidth = textWidth + margin * 2;  // Width with margins based on text size
+            const buttonHeight = textHeight;  // Fixed height
+            const cornerRadius = 10;  // Border radius for rounded corners
+            const borderColor = 0xffffff;  // Border color (white)
+            const borderWidth = 4;  // Border width
+        
+            // Draw button background
+            const buttonBg = this.add.graphics();
+            buttonBg.fillStyle(backgroundColor, 0.8);  // Semi-transparent background
+            buttonBg.fillRoundedRect(screenWidth - buttonWidth - 10, yPosition, buttonWidth, buttonHeight, cornerRadius); // Align to the right with some padding
+            buttonBg.lineStyle(borderWidth, borderColor);  // White border
+            buttonBg.strokeRoundedRect(screenWidth - buttonWidth - 10, yPosition, buttonWidth, buttonHeight, cornerRadius);
+            buttonBg.setScrollFactor(0).setDepth(9);  // Ensure it's sticky and below the text
+        
+            // Create button text with the imported Google Font
+            const buttonText = this.add.text(screenWidth - buttonWidth / 2 - 10, yPosition + buttonHeight / 2, text, { 
+                font: '24px Moderustic',  // Specify the font family here
                 fill: '#ffffff', // Text color (white for contrast)
                 align: 'center' // Center text alignment
             })
             .setInteractive()
             .on('pointerdown', callback.bind(this))
             .setScrollFactor(0)
-            .setDepth(10) // Ensure the text is on top of the background
+            .setDepth(10)  // Ensure the text is on top of the background
             .setOrigin(0.5, 0.5); // Center the text based on its origin
-
-        return {
-            buttonBg,
-            buttonText
-        };
-    }
+        
+            return { buttonBg, buttonText };
+        }
 
     // Helper function to get text width
     getTextWidth(text, font) {
