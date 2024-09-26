@@ -291,6 +291,8 @@ export class mainMap extends Phaser.Scene {
 
     // Function to create buttons with auto-fitting width and height
     createButton(text, yPosition, callback, backgroundColor) {
+          const screenWidth = this.scale.width;
+    const screenHeight = this.scale.height;
         // Calculate button dimensions based on text size
         const textWidth = this.getTextWidth(text, '24px Roboto'); // Use the imported Google Font
         const textHeight = 50;  // Set a fixed height for uniformity
