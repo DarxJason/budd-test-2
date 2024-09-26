@@ -289,12 +289,12 @@ export class mainMap extends Phaser.Scene {
         });
     }
 
-    // Function to create buttons with auto-fitting width and height
+     // Function to create buttons with auto-fitting width and height
     createButton(text, yPosition, callback, backgroundColor) {
           const screenWidth = this.scale.width;
     const screenHeight = this.scale.height;
         // Calculate button dimensions based on text size
-        const textWidth = this.getTextWidth(text, '24px "Moderustic"'); // Use the imported Google Font
+        const textWidth = this.getTextWidth(text, '24px Moderustic'); // Use the imported Google Font
         const textHeight = 50;  // Set a fixed height for uniformity
         const margin = 10;  // Margin around the text
 
@@ -315,7 +315,7 @@ export class mainMap extends Phaser.Scene {
 
         // Create button text with the imported Google Font
         const buttonText = this.add.text(screenWidth - buttonWidth - margin, yPosition + margin / 2, text, { 
-            font: '24px "Moderustic"',  // Specify the font family here
+            font: '24px Moderustic',  // Specify the font family here
             fill: '#ffffff' // Text color (white for contrast)
         })
         .setInteractive()
@@ -325,7 +325,6 @@ export class mainMap extends Phaser.Scene {
 
         return { buttonBg, buttonText };
     }
-
     
         // Helper function to get text width
         getTextWidth(text, font) {
