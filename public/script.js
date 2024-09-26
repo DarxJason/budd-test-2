@@ -5,7 +5,7 @@ export class mainMap extends Phaser.Scene {
     constructor() {
         super("mainMap");
     }
-
+ 
     preload() {
         this.load.tilemapTiledJSON('maps', 'assets/map.json');
         this.load.image('tiles', 'assets/tiles.png');
