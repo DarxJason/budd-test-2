@@ -170,8 +170,8 @@ export class mainMap extends Phaser.Scene {
         });
 
         // Create the buttons using the new function with separate background colors
-        const createButtonPosition = 10;
-        const loginButtonPosition = 60;
+  const createButtonPosition = 5;
+        const loginButtonPosition = 55;
 
         const createButton = this.createButton('Create Account', createButtonPosition, this.createAccount, 0x0AFC4B); // Green background
         const loginButton = this.createButton('Login', loginButtonPosition, this.login, 0xFF3D3D); // Red background
