@@ -182,13 +182,13 @@ export class mainMap extends Phaser.Scene {
 
             // Reposition the buttons and their backgrounds on resize
             createButton.buttonBg.clear();
-            createButton.buttonBg.fillStyle(0x007BFF, 0.5).fillRoundedRect(newWidth - createButton.buttonBg.width - 20, createButtonPosition, createButton.buttonBg.width, buttonHeight, cornerRadius);
+            createButton.buttonBg.fillStyle(0x0AFC4B, 0.8).fillRoundedRect(newWidth - createButton.buttonBg.width - 20, createButtonPosition, createButton.buttonBg.width, buttonHeight, cornerRadius);
             createButton.buttonBg.lineStyle(4, borderColor).strokeRoundedRect(newWidth - createButton.buttonBg.width - 20, createButtonPosition, createButton.buttonBg.width, buttonHeight, cornerRadius);
             
             createButton.buttonText.setX(newWidth - createButton.buttonBg.width - margin);
             
             loginButton.buttonBg.clear();
-            loginButton.buttonBg.fillStyle(0x28A745, 0.5).fillRoundedRect(newWidth - loginButton.buttonBg.width - 20, loginButtonPosition, loginButton.buttonBg.width, buttonHeight, cornerRadius);
+            loginButton.buttonBg.fillStyle(0xF54242, 0.8).fillRoundedRect(newWidth - loginButton.buttonBg.width - 20, loginButtonPosition, loginButton.buttonBg.width, buttonHeight, cornerRadius);
             loginButton.buttonBg.lineStyle(4, borderColor).strokeRoundedRect(newWidth - loginButton.buttonBg.width - 20, loginButtonPosition, loginButton.buttonBg.width, buttonHeight, cornerRadius);
             
             loginButton.buttonText.setX(newWidth - loginButton.buttonBg.width - margin);
@@ -294,7 +294,7 @@ export class mainMap extends Phaser.Scene {
           const screenWidth = this.scale.width;
     const screenHeight = this.scale.height;
         // Calculate button dimensions based on text size
-        const textWidth = this.getTextWidth(text, '24px Roboto'); // Use the imported Google Font
+        const textWidth = this.getTextWidth(text, '24px Nabla'); // Use the imported Google Font
         const textHeight = 50;  // Set a fixed height for uniformity
         const margin = 10;  // Margin around the text
 
