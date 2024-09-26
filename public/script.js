@@ -168,19 +168,20 @@ export class mainMap extends Phaser.Scene {
             loop: true
         });
 
-
-        // Button to create an account
-        const createButton = this.add.text(650, 20, 'Create Account', {
-                fill: '#0f0'
-            })
+        // Create the buttons with larger font size
+        const createButton = this.add.text(650, 20, 'Create Account', { fontSize: '32px', fill: '#0f0' })
             .setInteractive()
             .on('pointerdown', this.createAccount.bind(this));
-        // Button to login
-        const loginButton = this.add.text(650, 50, 'Login', {
-                fill: '#00f'
-            })
+        
+        const loginButton = this.add.text(650, 80, 'Login', { fontSize: '32px', fill: '#00f' })
             .setInteractive()
             .on('pointerdown', this.login.bind(this));
+
+         // Ensure the buttons are rendered on top
+createButton.setDepth(10);
+loginButton.setDepth(10);
+
+
     }
 
      update() {
