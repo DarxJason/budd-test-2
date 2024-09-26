@@ -182,19 +182,19 @@ export class mainMap extends Phaser.Scene {
 
             // Reposition the buttons and their backgrounds on resize
             createButton.buttonBg.clear();
-            createButton.buttonBg.fillStyle(0x0AFC4B, 0.8).fillRoundedRect(newWidth - createButton.buttonBg.width + 50, createButtonPosition, createButton.buttonBg.width, buttonHeight, cornerRadius);
+            createButton.buttonBg.fillStyle(0x0AFC4B, 0.8).fillRoundedRect(newWidth - createButton.buttonBg.width + 100, createButtonPosition, createButton.buttonBg.width, buttonHeight, cornerRadius);
             createButton.buttonBg.lineStyle(4, borderColor).strokeRoundedRect(newWidth - createButton.buttonBg.width - 30, createButtonPosition, createButton.buttonBg.width, buttonHeight, cornerRadius);
 
             // Center the text in the button
-            createButton.buttonText.setX(newWidth - createButton.buttonBg.width / 2 + 50);
+            createButton.buttonText.setX(newWidth - createButton.buttonBg.width / 2 + 100);
             createButton.buttonText.setY(createButtonPosition + buttonHeight / 2); // Center vertically
 
             loginButton.buttonBg.clear();
-            loginButton.buttonBg.fillStyle(0xFF3D3D, 0.8).fillRoundedRect(newWidth - loginButton.buttonBg.width + 50, loginButtonPosition, loginButton.buttonBg.width, buttonHeight, cornerRadius);
+            loginButton.buttonBg.fillStyle(0xFF3D3D, 0.8).fillRoundedRect(newWidth - loginButton.buttonBg.width + 100, loginButtonPosition, loginButton.buttonBg.width, buttonHeight, cornerRadius);
             loginButton.buttonBg.lineStyle(4, borderColor).strokeRoundedRect(newWidth - loginButton.buttonBg.width - 30, loginButtonPosition, loginButton.buttonBg.width, buttonHeight, cornerRadius);
 
             // Center the text in the button
-            loginButton.buttonText.setX(newWidth - loginButton.buttonBg.width / 2 + 50);
+            loginButton.buttonText.setX(newWidth - loginButton.buttonBg.width / 2 + 100);
             loginButton.buttonText.setY(loginButtonPosition + buttonHeight / 2); // Center vertically
         });
 
