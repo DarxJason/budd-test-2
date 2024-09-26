@@ -188,7 +188,7 @@ export class mainMap extends Phaser.Scene {
             createButton.buttonText.setX(newWidth - createButton.buttonBg.width - margin);
             
             loginButton.buttonBg.clear();
-            loginButton.buttonBg.fillStyle(0xF54242, 0.8).fillRoundedRect(newWidth - loginButton.buttonBg.width - 20, loginButtonPosition, loginButton.buttonBg.width, buttonHeight, cornerRadius);
+            loginButton.buttonBg.fillStyle(0xFF3D3D, 0.8).fillRoundedRect(newWidth - loginButton.buttonBg.width - 20, loginButtonPosition, loginButton.buttonBg.width, buttonHeight, cornerRadius);
             loginButton.buttonBg.lineStyle(4, borderColor).strokeRoundedRect(newWidth - loginButton.buttonBg.width - 20, loginButtonPosition, loginButton.buttonBg.width, buttonHeight, cornerRadius);
             
             loginButton.buttonText.setX(newWidth - loginButton.buttonBg.width - margin);
@@ -294,7 +294,7 @@ export class mainMap extends Phaser.Scene {
           const screenWidth = this.scale.width;
     const screenHeight = this.scale.height;
         // Calculate button dimensions based on text size
-        const textWidth = this.getTextWidth(text, '24px Nabla'); // Use the imported Google Font
+        const textWidth = this.getTextWidth(text, '24px Roboto'); // Use the imported Google Font
         const textHeight = 50;  // Set a fixed height for uniformity
         const margin = 10;  // Margin around the text
 
@@ -315,7 +315,7 @@ export class mainMap extends Phaser.Scene {
 
         // Create button text with the imported Google Font
         const buttonText = this.add.text(screenWidth - buttonWidth - margin, yPosition + margin / 2, text, { 
-            font: '24px Nabla',  // Specify the font family here
+            font: '24px Roboto',  // Specify the font family here
             fill: '#ffffff' // Text color (white for contrast)
         })
         .setInteractive()
