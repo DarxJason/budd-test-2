@@ -1,4 +1,3 @@
-
 let player;
 let playerLoginCode = null; // Store the player's login code
 
@@ -170,64 +169,30 @@ export class mainMap extends Phaser.Scene {
             loop: true
         });
 
+        // Create the buttons using the new function with separate background colors
+        const createButtonPosition = 20;
+        const loginButtonPosition = 90;
 
-  const screenWidth = this.scale.width;
-    const screenHeight = this.scale.height;
+        const createButton = this.createButton('Create Account', createButtonPosition, this.createAccount, 0x007BFF); // Blue background
+        const loginButton = this.createButton('Login', loginButtonPosition, this.login, 0x28A745); // Green background
 
-    // Button styles
-    const buttonWidth = 250;
-    const buttonHeight = 50;
-    const cornerRadius = 10;  // Border radius for rounded corners
-    const backgroundColor = 0x000000;  // Background color (black)
-    const borderColor = 0xffffff;  // Border color (white)
-    const borderWidth = 4;  // Border width
+        // Handle screen resizing to reposition the buttons
+        this.scale.on('resize', (gameSize) => {
+            const newWidth = gameSize.width;
 
-    // Draw the "Create Account" button background
-    const createButtonBg = this.add.graphics();
-    createButtonBg.fillStyle(backgroundColor, 0.8);  // Semi-transparent background (50% opacity)
-    createButtonBg.fillRoundedRect(screenWidth - buttonWidth - 20, 20, buttonWidth, buttonHeight, cornerRadius);
-    createButtonBg.lineStyle(borderWidth, borderColor);  // White border
-    createButtonBg.strokeRoundedRect(screenWidth - buttonWidth - 20, 20, buttonWidth, buttonHeight, cornerRadius);
-    createButtonBg.setScrollFactor(0).setDepth(9);  // Ensure it's sticky and below the text
-
-    // Create the "Create Account" button text
-    const createButtonText = this.add.text(screenWidth - buttonWidth - 10, 30, 'Create Account', { fontSize: '24px', fill: '#0f0' })
-        .setInteractive()
-        .on('pointerdown', this.createAccount.bind(this))
-        .setScrollFactor(0)
-        .setDepth(10);  // Ensure the text is on top of the background
-
-    // Draw the "Login" button background
-    const loginButtonBg = this.add.graphics();
-    loginButtonBg.fillStyle(backgroundColor, 0.8);  // Semi-transparent background (50% opacity)
-    loginButtonBg.fillRoundedRect(screenWidth - buttonWidth - 20, 90, buttonWidth, buttonHeight, cornerRadius);
-    loginButtonBg.lineStyle(borderWidth, borderColor);  // White border
-    loginButtonBg.strokeRoundedRect(screenWidth - buttonWidth - 20, 90, buttonWidth, buttonHeight, cornerRadius);
-    loginButtonBg.setScrollFactor(0).setDepth(9);  // Ensure it's sticky and below the text
-
-    // Create the "Login" button text
-    const loginButtonText = this.add.text(screenWidth - buttonWidth - 10, 100, 'Login', { fontSize: '24px', fill: '#00f' })
-        .setInteractive()
-        .on('pointerdown', this.login.bind(this))
-        .setScrollFactor(0)
-        .setDepth(10);  // Ensure the text is on top of the background
-
-    // Handle screen resizing to reposition the buttons
-    this.scale.on('resize', (gameSize, baseSize, displaySize, resolution) => {
-        const newWidth = gameSize.width;
-
-        // Re-position the buttons and their backgrounds on resize
-        createButtonBg.clear();  // Clear the previous graphics
-        createButtonBg.fillStyle(backgroundColor, 0.8).fillRoundedRect(newWidth - buttonWidth - 20, 20, buttonWidth, buttonHeight, cornerRadius);
-        createButtonBg.lineStyle(borderWidth, borderColor).strokeRoundedRect(newWidth - buttonWidth - 20, 20, buttonWidth, buttonHeight, cornerRadius);
-
-        loginButtonBg.clear();  // Clear the previous graphics
-        loginButtonBg.fillStyle(backgroundColor, 0.8).fillRoundedRect(newWidth - buttonWidth - 20, 90, buttonWidth, buttonHeight, cornerRadius);
-        loginButtonBg.lineStyle(borderWidth, borderColor).strokeRoundedRect(newWidth - buttonWidth - 20, 90, buttonWidth, buttonHeight, cornerRadius);
-
-        createButtonText.setX(newWidth - buttonWidth - 10);
-        loginButtonText.setX(newWidth - buttonWidth - 10);
-    });
+            // Reposition the buttons and their backgrounds on resize
+            createButton.buttonBg.clear();
+            createButton.buttonBg.fillStyle(0x007BFF, 0.5).fillRoundedRect(newWidth - createButton.buttonBg.width - 20, createButtonPosition, createButton.buttonBg.width, buttonHeight, cornerRadius);
+            createButton.buttonBg.lineStyle(4, borderColor).strokeRoundedRect(newWidth - createButton.buttonBg.width - 20, createButtonPosition, createButton.buttonBg.width, buttonHeight, cornerRadius);
+            
+            createButton.buttonText.setX(newWidth - createButton.buttonBg.width - margin);
+            
+            loginButton.buttonBg.clear();
+            loginButton.buttonBg.fillStyle(0x28A745, 0.5).fillRoundedRect(newWidth - loginButton.buttonBg.width - 20, loginButtonPosition, loginButton.buttonBg.width, buttonHeight, cornerRadius);
+            loginButton.buttonBg.lineStyle(4, borderColor).strokeRoundedRect(newWidth - loginButton.buttonBg.width - 20, loginButtonPosition, loginButton.buttonBg.width, buttonHeight, cornerRadius);
+            
+            loginButton.buttonText.setX(newWidth - loginButton.buttonBg.width - margin);
+        });
 
     }
 
@@ -324,6 +289,49 @@ export class mainMap extends Phaser.Scene {
         });
     }
 
+    // Function to create buttons with auto-fitting width and height
+    createButton(text, yPosition, callback, backgroundColor) {
+        // Calculate button dimensions based on text size
+        const textWidth = this.getTextWidth(text, '24px Roboto'); // Use the imported Google Font
+        const textHeight = 50;  // Set a fixed height for uniformity
+        const margin = 10;  // Margin around the text
+
+        // Button styles
+        const buttonWidth = textWidth + margin * 2;  // Width with margins
+        const buttonHeight = textHeight;  // Height remains fixed
+        const cornerRadius = 10;  // Border radius for rounded corners
+        const borderColor = 0xffffff;  // Border color (white)
+        const borderWidth = 4;  // Border width
+
+        // Draw button background
+        const buttonBg = this.add.graphics();
+        buttonBg.fillStyle(backgroundColor, 0.5);  // Semi-transparent background
+        buttonBg.fillRoundedRect(screenWidth - buttonWidth - 20, yPosition, buttonWidth, buttonHeight, cornerRadius);
+        buttonBg.lineStyle(borderWidth, borderColor);  // White border
+        buttonBg.strokeRoundedRect(screenWidth - buttonWidth - 20, yPosition, buttonWidth, buttonHeight, cornerRadius);
+        buttonBg.setScrollFactor(0).setDepth(9);  // Ensure it's sticky and below the text
+
+        // Create button text with the imported Google Font
+        const buttonText = this.add.text(screenWidth - buttonWidth - margin, yPosition + margin / 2, text, { 
+            font: '24px Roboto',  // Specify the font family here
+            fill: '#ffffff' // Text color (white for contrast)
+        })
+        .setInteractive()
+        .on('pointerdown', callback.bind(this))
+        .setScrollFactor(0)
+        .setDepth(10);  // Ensure the text is on top of the background
+
+        return { buttonBg, buttonText };
+    }
+
+    
+        // Helper function to get text width
+        getTextWidth(text, font) {
+            const canvas = document.createElement('canvas');
+            const context = canvas.getContext('2d');
+            context.font = font;
+            return context.measureText(text).width;
+        }
 
     
      spawnBush(x, y, rarity) {
