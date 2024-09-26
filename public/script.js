@@ -173,8 +173,8 @@ export class mainMap extends Phaser.Scene {
         const createButtonPosition = 20;
         const loginButtonPosition = 90;
 
-        const createButton = this.createButton('Create Account', createButtonPosition, this.createAccount, 0x007BFF); // Blue background
-        const loginButton = this.createButton('Login', loginButtonPosition, this.login, 0x28A745); // Green background
+        const createButton = this.createButton('Create Account', createButtonPosition, this.createAccount, 0x0AFC4B); // Blue background
+        const loginButton = this.createButton('Login', loginButtonPosition, this.login, 0xFF3D3D); // Green background
 
         // Handle screen resizing to reposition the buttons
         this.scale.on('resize', (gameSize) => {
@@ -294,7 +294,7 @@ export class mainMap extends Phaser.Scene {
           const screenWidth = this.scale.width;
     const screenHeight = this.scale.height;
         // Calculate button dimensions based on text size
-        const textWidth = this.getTextWidth(text, '24px Roboto'); // Use the imported Google Font
+        const textWidth = this.getTextWidth(text, '24px "Roboto"'); // Use the imported Google Font
         const textHeight = 50;  // Set a fixed height for uniformity
         const margin = 10;  // Margin around the text
 
@@ -315,7 +315,7 @@ export class mainMap extends Phaser.Scene {
 
         // Create button text with the imported Google Font
         const buttonText = this.add.text(screenWidth - buttonWidth - margin, yPosition + margin / 2, text, { 
-            font: '24px Roboto',  // Specify the font family here
+            font: '24px "Roboto"',  // Specify the font family here
             fill: '#ffffff' // Text color (white for contrast)
         })
         .setInteractive()
