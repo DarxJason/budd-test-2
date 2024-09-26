@@ -1,24 +1,4 @@
-// public/script.js
-const gameConfig = {
-    type: Phaser.AUTO,
-    width: window.innerWidth,
-    height: window.innerHeight,
-    pixelArt: true, 
-    scene: mainMap, 
-    physics: {
-        default: 'arcade',
-        arcade: {
-            fps: 60,
-            debug: false
-        }
-    },
-    scene: {
-        preload: preload,
-        create: create,
-        update: update
-    }
-};
-const game = new Phaser.Game(gameConfig);
+
 let player;
 let playerLoginCode = null; // Store the player's login code
 
@@ -752,5 +732,28 @@ export class mainMap extends Phaser.Scene {
      chasePlayer(player, enemy) {
     }
 }
+
+
+// public/script.js
+const gameConfig = {
+    type: Phaser.AUTO,
+    width: window.innerWidth,
+    height: window.innerHeight,
+    pixelArt: true, 
+    scene: mainMap, 
+    physics: {
+        default: 'arcade',
+        arcade: {
+            fps: 60,
+            debug: false
+        }
+    },
+    scene: {
+        preload: preload,
+        create: create,
+        update: update
+    }
+};
+const game = new Phaser.Game(gameConfig);
 
 export default mainMap;
