@@ -23,7 +23,7 @@ let player;
 let playerLoginCode = null; // Store the player's login code
 
 export class mainMap extends Phaser.Scene {
-    function constructor() {
+    constructor() {
         super("mainMap");
     }
 
