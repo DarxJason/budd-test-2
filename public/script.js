@@ -27,7 +27,7 @@ export class mainMap extends Phaser.Scene {
         super("mainMap");
     }
 
-    function preload() {
+     preload() {
         this.load.tilemapTiledJSON('maps', 'assets/map.json');
         this.load.image('tiles', 'assets/tiles.png');
         this.load.image('player', 'assets/flower.webp');
@@ -38,7 +38,7 @@ export class mainMap extends Phaser.Scene {
         this.load.image('bush', 'assets/mob/bush.svg');
     }
 
-    function create() {
+     create() {
         const map = this.add.tilemap('maps');
         const tiles = map.addTilesetImage('tileset', 'tiles');
         const groundLayer = map.createLayer('Map', tiles, 0, 0);
@@ -141,7 +141,7 @@ export class mainMap extends Phaser.Scene {
             .on('pointerdown', login);
     }
 
-    function update() {
+     update() {
         const maxSpeed = 175;
         const minSpeed = 0;
         const stopDistance = 10;
@@ -234,7 +234,7 @@ export class mainMap extends Phaser.Scene {
         });
     }
 
-    function createAccount() {
+     createAccount() {
         fetch('https://budd-test-2.vercel.app/api/create-account', {
                 method: 'POST',
                 headers: {
@@ -263,7 +263,7 @@ export class mainMap extends Phaser.Scene {
             });
     }
 
-    function  login() {
+      login() {
         // Ask for the player's login code using a prompt
         const enteredCode = prompt("Enter your login code:");
 
@@ -299,7 +299,7 @@ export class mainMap extends Phaser.Scene {
     }
 
     
-    function spawnBush(x, y, rarity) {
+     spawnBush(x, y, rarity) {
         let bush = this.physics.add.sprite(x, y, 'bush');
         bush.setScale(1); // Scale the bush to make it smaller
         bush.setDepth(1); // Set base depth for bush
@@ -344,7 +344,7 @@ export class mainMap extends Phaser.Scene {
     }
 
 
-    function attemptSpawnBush() {
+     attemptSpawnBush() {
         // Randomly spawn a bush with rarity logic
         let rarity = Math.random() < 0.1 ? 'rare' : 'common';
         let x, y;
@@ -362,7 +362,7 @@ export class mainMap extends Phaser.Scene {
             this.spawnBush(x, y, rarity);
         }
     }
-    function handleBushCollision(player, bush) {
+     handleBushCollision(player, bush) {
         if (!this.damageCooldown) {
             this.takeDamage(bush.damageDelt);
             this.player.setTint(0xff0000);
@@ -395,14 +395,14 @@ export class mainMap extends Phaser.Scene {
     
 
 
-    function damageBush(bush, amount) {
+     damageBush(bush, amount) {
         bush.currentHp = Phaser.Math.Clamp(bush.currentHp - amount, 0, bush.maxHp);
         if (bush.currentHp <= 0) {
             this.bushDied(bush);
         }
     }
 
-    function bushDied(bush) {
+     bushDied(bush) {
         bush.rarityText.destroy();
    
         bush.healthBar.destroy();
@@ -412,13 +412,13 @@ export class mainMap extends Phaser.Scene {
 
 
 
-    function autoHeal() {
+     autoHeal() {
         if (this.currentHp <= (this.hp - 50)) {
             this.currentHp += 50;
         }
     }
 
-    function createHpBar() {
+     createHpBar() {
         this.hpBarContainer = document.createElement('div');
         this.hpBarContainer.style.position = 'absolute';
         this.hpBarContainer.style.top = '20px';
@@ -442,11 +442,11 @@ export class mainMap extends Phaser.Scene {
         this.updateHpBar();
     }
 
-    function createBottomBoxes() {
+     createBottomBoxes() {
 
     }
     
-    function createPetalSlots() {
+     createPetalSlots() {
         this.petalSlots = [];
         const petalContainer = document.createElement('div');
         petalContainer.style.position = 'absolute';
@@ -480,7 +480,7 @@ export class mainMap extends Phaser.Scene {
         }
     }
 
-    function createUtilityIcons() {
+     createUtilityIcons() {
         const boxes = [
             { BOXborder: '#4981b1', BGcolor: '#5a9fdb', color: '#5a9fdb', border: '4px solid #4981b1', key: '(C)', image: 'src/assets/crafting.svg', content: 'Crafting' }
         ];
@@ -562,12 +562,12 @@ export class mainMap extends Phaser.Scene {
         });
     }
 
-    function updateHpBar() {
+     updateHpBar() {
         const hpPercentage = this.currentHp / this.hp;
         this.hpBar.style.width = `${hpPercentage * 100}%`;
     }
 
-    function handleCollision(player, enemy) {
+     handleCollision(player, enemy) {
         if (!this.damageCooldown) {
             this.takeDamage(enemy.damageDelt);
             this.player.setTint(0xff0000);
@@ -602,7 +602,7 @@ export class mainMap extends Phaser.Scene {
     
     
     
-    function takeDamage(amount) {
+     takeDamage(amount) {
         this.currentHp = Phaser.Math.Clamp(this.currentHp - amount, 0, this.hp);
         this.smoothHpBarDecrease();
         if (this.currentHp <= 0) {
@@ -610,21 +610,21 @@ export class mainMap extends Phaser.Scene {
         }
     }
 
-    function damageEnemy(enemy, amount) {
+     damageEnemy(enemy, amount) {
         enemy.currentHp = Phaser.Math.Clamp(enemy.currentHp - amount, 0, enemy.maxHp);
         if (enemy.currentHp <= 0) {
             this.enemyDied(enemy);
         }
     }
 
-    function enemyDied(enemy) {
+     enemyDied(enemy) {
         enemy.rarityText.destroy();
    
         enemy.healthBar.destroy();
         enemy.destroy();
     }
 
-    function smoothHpBarDecrease() {
+     smoothHpBarDecrease() {
         this.tweens.addCounter({
             from: this.hpBar.clientWidth,
             to: (this.currentHp / this.hp) * 250,
@@ -635,14 +635,14 @@ export class mainMap extends Phaser.Scene {
         });
     }
 
-    function playerDied() {
+     playerDied() {
         this.currentHp = this.hp;
         this.player.setPosition(Phaser.Math.Between(4000, 6000), Phaser.Math.Between(6200, 8000));
         this.currentHp = this.hp / 3;
         this.smoothHpBarDecrease();
     }
 
-    function changeDirection(enemy) {
+     changeDirection(enemy) {
         const directions = [
             new Phaser.Math.Vector2(1, 0),
             new Phaser.Math.Vector2(-1, 0),
@@ -657,13 +657,13 @@ export class mainMap extends Phaser.Scene {
         enemy.wanderDirection = Phaser.Utils.Array.GetRandom(directions);
     }
 
-    function changeEnemiesDirection() {
+     changeEnemiesDirection() {
         this.enemies.getChildren().forEach(enemy => {
             this.changeDirection(enemy);
         });
     }
 
-    function spawnEnemies(count) {
+     spawnEnemies(count) {
         for (let i = 0; i < count; i++) {
             let x = Phaser.Math.Between(4000, 6000);
             let y = Phaser.Math.Between(6200, 8000);
@@ -733,13 +733,13 @@ export class mainMap extends Phaser.Scene {
         }
     }
 
-    function attemptSpawnEnemy() {
+     attemptSpawnEnemy() {
         if (Phaser.Math.Between(1, 2) === 1) {
             this.spawnEnemies(1);
         }
     }
 
-    function getRarityMultiplier(rarity) {
+     getRarityMultiplier(rarity) {
         switch (rarity) {
             case 'Nob': return 1;
             case 'Mythic': return 5;
@@ -749,7 +749,7 @@ export class mainMap extends Phaser.Scene {
         }
     }
 
-    function chasePlayer(player, enemy) {
+     chasePlayer(player, enemy) {
     }
 }
 
