@@ -170,18 +170,35 @@ export class mainMap extends Phaser.Scene {
             loop: true
         });
 
-        // Create the buttons with larger font size
-        const createButton = this.add.text(650, 20, 'Create Account', { fontSize: '32px', fill: '#0f0' })
-            .setInteractive()
-            .on('pointerdown', this.createAccount.bind(this));
-        
-        const loginButton = this.add.text(650, 80, 'Login', { fontSize: '32px', fill: '#00f' })
-            .setInteractive()
-            .on('pointerdown', this.login.bind(this));
+       // Set button positions based on the screen width and height
+    const screenWidth = this.scale.width;  // Get the screen width
+    const screenHeight = this.scale.height;  // Get the screen height
+
+    // Create the "Create Account" button
+    const createButton = this.add.text(screenWidth - 200, 20, 'Create Account', { fontSize: '32px', fill: '#0f0' })
+        .setInteractive()
+        .on('pointerdown', this.createAccount.bind(this))
+        .setScrollFactor(0)  // Make it sticky (won't move with camera)
+        .setDepth(10);  // Ensure it's always on top
+
+    // Create the "Login" button
+    const loginButton = this.add.text(screenWidth - 200, 80, 'Login', { fontSize: '32px', fill: '#00f' })
+        .setInteractive()
+        .on('pointerdown', this.login.bind(this))
+        .setScrollFactor(0)  // Make it sticky (won't move with camera)
+        .setDepth(10);  // Ensure it's always on top
 
          // Ensure the buttons are rendered on top
         createButton.setDepth(100000);
         loginButton.setDepth(1000000);
+
+          this.scale.on('resize', (gameSize, baseSize, displaySize, resolution) => {
+        const newWidth = gameSize.width;
+
+        // Re-position the buttons on resize
+        createButton.setX(newWidth - 200);
+        loginButton.setX(newWidth - 200);
+    });
 
 
     }
