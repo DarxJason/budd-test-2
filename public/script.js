@@ -87,9 +87,10 @@ export class mainMap extends Phaser.Scene {
 
         groundLayer.setScale(15);
         wallLayer.setScale(15);
+         
 
-            groundLayer.setZoom(0.1);
-        wallLayer.setZoom(0.1);
+            groundLayer.setZoom(0.5);
+        wallLayer.setZoom(0.5);
         this.useMouseControl = false;
         this.movementArrow = this.add.graphics();
         this.movementArrow.lineStyle(12, 0x808080);
