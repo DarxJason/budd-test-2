@@ -1,4 +1,4 @@
-const socket = io('https://budd-test-2.vercel.app');
+const socket = io('https://budd-test-2.vercel.app/api/socket');
 let players = {};  // Store all players
 
 let player;
