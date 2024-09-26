@@ -4,12 +4,15 @@ const { Server } = require('socket.io');
 const handler = (req, res) => {
     // Initialize Socket.IO only once
     if (!res.socket.server.io) {
-        const io = new Server(res.socket.server, {
-            cors: {
-                origin: '*', // Adjust as necessary for security
-                methods: ['GET', 'POST'],
-            },
-        });
+        // const io = new Server(res.socket.server, {
+        //     cors: {
+        //         origin: '*', // Adjust as necessary for security
+        //         methods: ['GET', 'POST'],
+        //     },
+        // });
+
+        const io = new Server(res.socket.server,{ path: '/api/socket',addTrailingSlash: false });
+res.socket.server.io = io;
 
         res.socket.server.io = io;
 
