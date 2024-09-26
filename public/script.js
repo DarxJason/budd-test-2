@@ -6,7 +6,7 @@ export class mainMap extends Phaser.Scene {
         super("mainMap");
     }
 
-     preload() {
+    preload() {
         this.load.tilemapTiledJSON('maps', 'assets/map.json');
         this.load.image('tiles', 'assets/tiles.png');
         this.load.image('player', 'assets/flower.webp');
@@ -14,8 +14,8 @@ export class mainMap extends Phaser.Scene {
         this.load.image('squareBud', 'assets/squareBud.png');
         this.load.image('bush', 'assets/mob/bush.svg');
     }
-     
- createAccount() {
+
+    createAccount() {
         fetch('https://budd-test-2.vercel.app/api/create-account', {
                 method: 'POST',
                 headers: {
@@ -44,7 +44,7 @@ export class mainMap extends Phaser.Scene {
             });
     }
 
-      login() {
+    login() {
         // Ask for the player's login code using a prompt
         const enteredCode = prompt("Enter your login code:");
 
@@ -78,7 +78,7 @@ export class mainMap extends Phaser.Scene {
                 alert('Error during login: ' + error.message);
             });
     }
-     create() {
+    create() {
         const map = this.add.tilemap('maps');
         const tiles = map.addTilesetImage('tileset', 'tiles');
         const groundLayer = map.createLayer('Map', tiles, 0, 0);
@@ -86,7 +86,7 @@ export class mainMap extends Phaser.Scene {
 
         groundLayer.setScale(15);
         wallLayer.setScale(15);
-         
+
 
         this.useMouseControl = false;
         this.movementArrow = this.add.graphics();
@@ -125,7 +125,7 @@ export class mainMap extends Phaser.Scene {
 
         this.enemies = this.physics.add.group();
         this.bushes = this.physics.add.group(); // New group for bushes
-        
+
 
         this.physics.add.collider(this.player, this.enemies, this.handleCollision, null, this);
         this.physics.add.collider(this.enemies, this.enemies);
@@ -138,8 +138,8 @@ export class mainMap extends Phaser.Scene {
 
         // Add collision between the player and bushes
         this.physics.add.collider(this.player, this.bushes, this.handleBushCollision, null, this);
-       
-     
+
+
         this.time.addEvent({
             delay: 2000,
             callback: this.changeEnemiesDirection,
@@ -169,42 +169,42 @@ export class mainMap extends Phaser.Scene {
             loop: true
         });
 
-// Create the buttons using the new function with separate background colors
-const createButtonPosition = 20;
-const loginButtonPosition = 90;
+        // Create the buttons using the new function with separate background colors
+        const createButtonPosition = 20;
+        const loginButtonPosition = 90;
 
-const createButton = this.createButton('Create Account', createButtonPosition, this.createAccount, 0x0AFC4B); // Green background
-const loginButton = this.createButton('Login', loginButtonPosition, this.login, 0xFF3D3D); // Red background
+        const createButton = this.createButton('Create Account', createButtonPosition, this.createAccount, 0x0AFC4B); // Green background
+        const loginButton = this.createButton('Login', loginButtonPosition, this.login, 0xFF3D3D); // Red background
 
-// Handle screen resizing to reposition the buttons
-this.scale.on('resize', (gameSize) => {
-    const newWidth = gameSize.width;
+        // Handle screen resizing to reposition the buttons
+        this.scale.on('resize', (gameSize) => {
+            const newWidth = gameSize.width;
 
-    // Reposition the buttons and their backgrounds on resize
-    createButton.buttonBg.clear();
-    createButton.buttonBg.fillStyle(0x0AFC4B, 0.8).fillRoundedRect(newWidth - createButton.buttonBg.width - 30, createButtonPosition, createButton.buttonBg.width, buttonHeight, cornerRadius);
-    createButton.buttonBg.lineStyle(4, borderColor).strokeRoundedRect(newWidth - createButton.buttonBg.width - 30, createButtonPosition, createButton.buttonBg.width, buttonHeight, cornerRadius);
-    
-    // Center the text in the button
-    createButton.buttonText.setX(newWidth - createButton.buttonBg.width / 2 - 30); 
-    createButton.buttonText.setY(createButtonPosition + buttonHeight / 2); // Center vertically
-    
-    loginButton.buttonBg.clear();
-    loginButton.buttonBg.fillStyle(0xFF3D3D, 0.8).fillRoundedRect(newWidth - loginButton.buttonBg.width - 30, loginButtonPosition, loginButton.buttonBg.width, buttonHeight, cornerRadius);
-    loginButton.buttonBg.lineStyle(4, borderColor).strokeRoundedRect(newWidth - loginButton.buttonBg.width - 30, loginButtonPosition, loginButton.buttonBg.width, buttonHeight, cornerRadius);
-    
-    // Center the text in the button
-    loginButton.buttonText.setX(newWidth - loginButton.buttonBg.width / 2 - 30); 
-    loginButton.buttonText.setY(loginButtonPosition + buttonHeight / 2); // Center vertically
-});
+            // Reposition the buttons and their backgrounds on resize
+            createButton.buttonBg.clear();
+            createButton.buttonBg.fillStyle(0x0AFC4B, 0.8).fillRoundedRect(newWidth - createButton.buttonBg.width - 10, createButtonPosition, createButton.buttonBg.width, buttonHeight, cornerRadius);
+            createButton.buttonBg.lineStyle(4, borderColor).strokeRoundedRect(newWidth - createButton.buttonBg.width - 30, createButtonPosition, createButton.buttonBg.width, buttonHeight, cornerRadius);
+
+            // Center the text in the button
+            createButton.buttonText.setX(newWidth - createButton.buttonBg.width / 2 - 10);
+            createButton.buttonText.setY(createButtonPosition + buttonHeight / 2); // Center vertically
+
+            loginButton.buttonBg.clear();
+            loginButton.buttonBg.fillStyle(0xFF3D3D, 0.8).fillRoundedRect(newWidth - loginButton.buttonBg.width - 10, loginButtonPosition, loginButton.buttonBg.width, buttonHeight, cornerRadius);
+            loginButton.buttonBg.lineStyle(4, borderColor).strokeRoundedRect(newWidth - loginButton.buttonBg.width - 30, loginButtonPosition, loginButton.buttonBg.width, buttonHeight, cornerRadius);
+
+            // Center the text in the button
+            loginButton.buttonText.setX(newWidth - loginButton.buttonBg.width / 2 - 10);
+            loginButton.buttonText.setY(loginButtonPosition + buttonHeight / 2); // Center vertically
+        });
 
     }
 
-     update() {
+    update() {
         const maxSpeed = 175;
         const minSpeed = 0;
         const stopDistance = 10;
-    
+
         if (Phaser.Input.Keyboard.JustDown(this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.K))) {
             this.useMouseControl = !this.useMouseControl;
         }
@@ -215,27 +215,27 @@ this.scale.on('resize', (gameSize) => {
             const angle = Math.atan2(dy, dx);
             const distance = Math.sqrt(dx * dx + dy * dy);
             let speed = maxSpeed;
-    
+
             if (distance > stopDistance) {
                 if (distance < maxSpeed) {
                     speed = Math.max(minSpeed, distance);
                 }
-    
+
                 const velocityX = (dx / distance) * speed;
                 const velocityY = (dy / distance) * speed;
                 this.player.setVelocity(velocityX, velocityY);
             } else {
                 this.player.setVelocity(0);
             }
-    
+
             this.movementArrow.clear();
             this.movementArrow.fillStyle(0x808080);
-    
+
             const arrowheadSize = 20;
             const arrowDistanceFromPlayer = 50;
             const arrowheadX = this.player.x + Math.cos(angle) * arrowDistanceFromPlayer;
             const arrowheadY = this.player.y + Math.sin(angle) * arrowDistanceFromPlayer;
-    
+
             this.movementArrow.beginPath();
             this.movementArrow.moveTo(arrowheadX, arrowheadY);
             this.movementArrow.lineTo(arrowheadX - arrowheadSize * Math.cos(angle - Math.PI / 6), arrowheadY - arrowheadSize * Math.sin(angle - Math.PI / 6));
@@ -244,36 +244,36 @@ this.scale.on('resize', (gameSize) => {
             this.movementArrow.fillPath();
         } else {
             this.player.setVelocity(0);
-    
+
             if (this.keys.w.isDown || this.cursors.up.isDown) {
                 this.player.setVelocityY(-maxSpeed);
             } else if (this.keys.s.isDown || this.cursors.down.isDown) {
                 this.player.setVelocityY(maxSpeed);
             }
-    
+
             if (this.keys.a.isDown || this.cursors.left.isDown) {
                 this.player.setVelocityX(-maxSpeed);
             } else if (this.keys.d.isDown || this.cursors.right.isDown) {
                 this.player.setVelocityX(maxSpeed);
             }
-    
+
             this.movementArrow.clear();
         }
-    
+
         this.enemies.getChildren().forEach(enemy => {
             let distance = Phaser.Math.Distance.Between(this.player.x, this.player.y, enemy.x, enemy.y);
             let chaseRange = 550;
-    
+
             if (distance < chaseRange) {
                 this.physics.moveToObject(enemy, this.player, 125);
             } else {
                 enemy.setVelocity(enemy.wanderDirection.x * 50, enemy.wanderDirection.y * 50);
             }
-    
+
             if (enemy.body.velocity.x !== 0 || enemy.body.velocity.y !== 0) {
                 enemy.rotation = Math.atan2(enemy.body.velocity.y, enemy.body.velocity.x) + Math.PI / 2;
             }
-    
+
             enemy.healthBar.clear();
             enemy.healthBar.fillStyle(0xff0000, 1);
             enemy.healthBar.fillRect(enemy.x - 20, enemy.y - 35, 40, 5);
@@ -281,9 +281,9 @@ this.scale.on('resize', (gameSize) => {
             enemy.healthBar.fillRect(enemy.x - 20, enemy.y - 35, 40 * (enemy.currentHp / enemy.maxHp), 5);
             enemy.rarityText.setPosition(enemy.x, enemy.y - 50);
         });
-    
+
         this.updateHpBar();
-    
+
         this.bushes.getChildren().forEach(bush => {
             bush.healthBar.clear();
             bush.healthBar.fillStyle(0xff0000, 1);
@@ -293,160 +293,164 @@ this.scale.on('resize', (gameSize) => {
         });
     }
 
-   // Function to create buttons with auto-fitting width and height
-createButton(text, yPosition, callback, backgroundColor) {
-    const screenWidth = this.scale.width;
+    // Function to create buttons with auto-fitting width and height
+    createButton(text, yPosition, callback, backgroundColor) {
+        const screenWidth = this.scale.width;
 
-    // Calculate button dimensions based on text size
-    const textWidth = this.getTextWidth(text, '24px Moderustic'); // Use the imported Google Font
-    const textHeight = 50;  // Set a fixed height for uniformity
-    const margin = 10;  // Margin around the text
+        // Calculate button dimensions based on text size
+        const textWidth = this.getTextWidth(text, '24px Moderustic'); // Use the imported Google Font
+        const textHeight = 50; // Set a fixed height for uniformity
+        const margin = 10; // Margin around the text
 
-    // Button styles - Increased button dimensions
-    const buttonWidth = textWidth + margin * 2 + 20;  // Width with margins + extra for growth
-    const buttonHeight = textHeight + 10;  // Height remains fixed + extra for growth
-    const cornerRadius = 10;  // Border radius for rounded corners
-    const borderColor = 0xffffff;  // Border color (white)
-    const borderWidth = 4;  // Border width
+        // Button styles - Increased button dimensions
+        const buttonWidth = textWidth + margin * 2 + 20; // Width with margins + extra for growth
+        const buttonHeight = textHeight + 10; // Height remains fixed + extra for growth
+        const cornerRadius = 10; // Border radius for rounded corners
+        const borderColor = 0xffffff; // Border color (white)
+        const borderWidth = 4; // Border width
 
-    // Draw button background
-    const buttonBg = this.add.graphics();
-    buttonBg.fillStyle(backgroundColor, 0.8);  // Semi-transparent background
-    buttonBg.fillRoundedRect(screenWidth - buttonWidth - 30, yPosition, buttonWidth, buttonHeight, cornerRadius); // Adjusted X position
-    buttonBg.lineStyle(borderWidth, borderColor);  // White border
-    buttonBg.strokeRoundedRect(screenWidth - buttonWidth - 30, yPosition, buttonWidth, buttonHeight, cornerRadius);
-    buttonBg.setScrollFactor(0).setDepth(9);  // Ensure it's sticky and below the text
+        // Draw button background
+        const buttonBg = this.add.graphics();
+        buttonBg.fillStyle(backgroundColor, 0.8); // Semi-transparent background
+        buttonBg.fillRoundedRect(screenWidth - buttonWidth - 30, yPosition, buttonWidth, buttonHeight, cornerRadius); // Adjusted X position
+        buttonBg.lineStyle(borderWidth, borderColor); // White border
+        buttonBg.strokeRoundedRect(screenWidth - buttonWidth - 30, yPosition, buttonWidth, buttonHeight, cornerRadius);
+        buttonBg.setScrollFactor(0).setDepth(9); // Ensure it's sticky and below the text
 
-    // Create button text with the imported Google Font
-    const buttonText = this.add.text(screenWidth - buttonWidth / 2 - 30, yPosition + buttonHeight / 2, text, { 
-        font: '24px Moderustic',  // Specify the font family here
-        fill: '#ffffff', // Text color (white for contrast)
-        align: 'center' // Center text alignment
-    })
-    .setInteractive()
-    .on('pointerdown', callback.bind(this))
-    .setScrollFactor(0)
-    .setDepth(10)  // Ensure the text is on top of the background
-    .setOrigin(0.5, 0.5); // Center the text based on its origin
+        // Create button text with the imported Google Font
+        const buttonText = this.add.text(screenWidth - buttonWidth / 2 - 30, yPosition + buttonHeight / 2, text, {
+                font: '24px Moderustic', // Specify the font family here
+                fill: '#ffffff', // Text color (white for contrast)
+                align: 'center' // Center text alignment
+            })
+            .setInteractive()
+            .on('pointerdown', callback.bind(this))
+            .setScrollFactor(0)
+            .setDepth(10) // Ensure the text is on top of the background
+            .setOrigin(0.5, 0.5); // Center the text based on its origin
 
-    return { buttonBg, buttonText };
-}
+        return {
+            buttonBg,
+            buttonText
+        };
+    }
 
-// Helper function to get text width
-getTextWidth(text, font) {
-    const canvas = document.createElement('canvas');
-    const context = canvas.getContext('2d');
-    context.font = font;
-    return context.measureText(text).width;
-}
+    // Helper function to get text width
+    getTextWidth(text, font) {
+        const canvas = document.createElement('canvas');
+        const context = canvas.getContext('2d');
+        context.font = font;
+        return context.measureText(text).width;
+    }
 
-    
-     spawnBush(x, y, rarity) {
+
+    spawnBush(x, y, rarity) {
         let bush = this.physics.add.sprite(x, y, 'bush');
         bush.setScale(1); // Scale the bush to make it smaller
         bush.setDepth(1); // Set base depth for bush
-    
+
         // Use the same health and damage mechanics as square enemies
         const rarityMultiplier = this.getRarityMultiplier(rarity);
         bush.maxHp = 60 * rarityMultiplier; // Match square health mechanics
         bush.currentHp = bush.maxHp;
-    
+
         // Health bar for bush
         bush.healthBar = this.add.graphics();
         bush.healthBar.setDepth(5); // Ensure health bar is on top
-    
+
         // Add rarity text above the bush
-        bush.rarityText = this.add.text(bush.x, bush.y - 50, rarity, { fontSize: '25px', fill: '#ffffff' });
+        bush.rarityText = this.add.text(bush.x, bush.y - 50, rarity, {
+            fontSize: '25px',
+            fill: '#ffffff'
+        });
         bush.rarityText.setOrigin(0.5);
         bush.rarityText.setDepth(6); // Ensure rarity text is on top
-    
+
         // Bush properties
         bush.body.immovable = true; // Make it stationary
-        bush.body.moves = false;    // Disable movement
+        bush.body.moves = false; // Disable movement
         bush.damageDelt = 20 * rarityMultiplier; // Match square damage mechanics
-       
-        bush.body.setMass(1);  
+
+        bush.body.setMass(1);
         bush.body.setCollideWorldBounds(true);
 
         // Add the bush to the bushes group
         this.bushes.add(bush); // <-- Corrected here
 
         bush.body.immovable = true;
-        bush.body.pushable = true; 
-            
+        bush.body.pushable = true;
+
         // Update bush health bar
         bush.healthBar.clear();
         bush.healthBar.fillStyle(0xff0000, 1);
         bush.healthBar.fillRect(bush.x - 20, bush.y - 35, 40, 5); // HP bar on top
         bush.healthBar.fillStyle(0x00ff00, 1);
         bush.healthBar.fillRect(bush.x - 20, bush.y - 35, 40 * (bush.currentHp / bush.maxHp), 5);
-    
+
         // Update rarity text position
         bush.rarityText.setPosition(bush.x, bush.y - 50);
     }
 
 
-     attemptSpawnBush() {
+    attemptSpawnBush() {
         // Randomly spawn a bush with rarity logic
         let rarity = Math.random() < 0.1 ? 'rare' : 'common';
         let x, y;
         let safeDistance = 150; // Define a minimum safe distance from the player
-    
+
         // Keep generating a new position if it's too close to the player
         do {
             x = Phaser.Math.Between(4000, 6000);
             y = Phaser.Math.Between(6200, 8000);
         } while (Phaser.Math.Distance.Between(x, y, this.player.x, this.player.y) < safeDistance);
-    
+
         if (rarity === 'rare') {
             this.spawnBush(x, y, rarity); // Rare bush with more health
         } else {
             this.spawnBush(x, y, rarity);
         }
     }
-     handleBushCollision(player, bush) {
+    handleBushCollision(player, bush) {
         if (!this.damageCooldown) {
             this.takeDamage(bush.damageDelt);
             this.player.setTint(0xff0000);
             this.time.delayedCall(100, () => {
                 this.player.clearTint();
             });
-    
+
             this.damageCooldown = true;
             this.time.delayedCall(500, () => {
                 this.damageCooldown = false;
             });
         }
-    
+
         if (!bush.damageCooldown) {
             this.damageBush(bush, 5);
             bush.setTint(0xff0000);
             this.time.delayedCall(100, () => {
                 bush.clearTint();
             });
-    
+
             bush.damageCooldown = true;
             this.time.delayedCall(500, () => {
                 bush.damageCooldown = false;
             });
         }
     }
-    
-    
-    
-    
 
 
-     damageBush(bush, amount) {
+
+
+    damageBush(bush, amount) {
         bush.currentHp = Phaser.Math.Clamp(bush.currentHp - amount, 0, bush.maxHp);
         if (bush.currentHp <= 0) {
             this.bushDied(bush);
         }
     }
 
-     bushDied(bush) {
+    bushDied(bush) {
         bush.rarityText.destroy();
-   
+
         bush.healthBar.destroy();
         bush.destroy();
     }
@@ -454,13 +458,13 @@ getTextWidth(text, font) {
 
 
 
-     autoHeal() {
+    autoHeal() {
         if (this.currentHp <= (this.hp - 50)) {
             this.currentHp += 50;
         }
     }
 
-     createHpBar() {
+    createHpBar() {
         this.hpBarContainer = document.createElement('div');
         this.hpBarContainer.style.position = 'absolute';
         this.hpBarContainer.style.top = '20px';
@@ -484,11 +488,11 @@ getTextWidth(text, font) {
         this.updateHpBar();
     }
 
-     createBottomBoxes() {
+    createBottomBoxes() {
 
     }
-    
-     createPetalSlots() {
+
+    createPetalSlots() {
         this.petalSlots = [];
         const petalContainer = document.createElement('div');
         petalContainer.style.position = 'absolute';
@@ -522,10 +526,16 @@ getTextWidth(text, font) {
         }
     }
 
-     createUtilityIcons() {
-        const boxes = [
-            { BOXborder: '#4981b1', BGcolor: '#5a9fdb', color: '#5a9fdb', border: '4px solid #4981b1', key: '(C)', image: 'assets/crafting.svg', content: 'Crafting' }
-        ];
+    createUtilityIcons() {
+        const boxes = [{
+            BOXborder: '#4981b1',
+            BGcolor: '#5a9fdb',
+            color: '#5a9fdb',
+            border: '4px solid #4981b1',
+            key: '(C)',
+            image: 'assets/crafting.svg',
+            content: 'Crafting'
+        }];
 
         const boxContainer = document.createElement('div');
         boxContainer.style.position = 'absolute';
@@ -604,47 +614,47 @@ getTextWidth(text, font) {
         });
     }
 
-     updateHpBar() {
+    updateHpBar() {
         const hpPercentage = this.currentHp / this.hp;
         this.hpBar.style.width = `${hpPercentage * 100}%`;
     }
 
-     handleCollision(player, enemy) {
+    handleCollision(player, enemy) {
         if (!this.damageCooldown) {
             this.takeDamage(enemy.damageDelt);
             this.player.setTint(0xff0000);
             this.time.delayedCall(100, () => {
                 this.player.clearTint();
             });
-    
+
             this.damageCooldown = true;
             this.time.delayedCall(500, () => {
                 this.damageCooldown = false;
             });
         }
-    
+
         if (!enemy.damageCooldown) {
             this.damageEnemy(enemy, 5);
             enemy.setTint(0xff0000);
             this.time.delayedCall(100, () => {
                 enemy.clearTint();
             });
-    
+
             enemy.damageCooldown = true;
             this.time.delayedCall(500, () => {
                 enemy.damageCooldown = false;
             });
         }
-    
+
         // Bounce effect
         const angle = Phaser.Math.Angle.Between(player.x, player.y, enemy.x, enemy.y);
         const bounceForce = 200; // Adjust this value to control bounce strength
         player.body.setVelocity(Math.cos(angle) * -bounceForce, Math.sin(angle) * -bounceForce);
     }
-    
-    
-    
-     takeDamage(amount) {
+
+
+
+    takeDamage(amount) {
         this.currentHp = Phaser.Math.Clamp(this.currentHp - amount, 0, this.hp);
         this.smoothHpBarDecrease();
         if (this.currentHp <= 0) {
@@ -652,21 +662,21 @@ getTextWidth(text, font) {
         }
     }
 
-     damageEnemy(enemy, amount) {
+    damageEnemy(enemy, amount) {
         enemy.currentHp = Phaser.Math.Clamp(enemy.currentHp - amount, 0, enemy.maxHp);
         if (enemy.currentHp <= 0) {
             this.enemyDied(enemy);
         }
     }
 
-     enemyDied(enemy) {
+    enemyDied(enemy) {
         enemy.rarityText.destroy();
-   
+
         enemy.healthBar.destroy();
         enemy.destroy();
     }
 
-     smoothHpBarDecrease() {
+    smoothHpBarDecrease() {
         this.tweens.addCounter({
             from: this.hpBar.clientWidth,
             to: (this.currentHp / this.hp) * 250,
@@ -677,14 +687,14 @@ getTextWidth(text, font) {
         });
     }
 
-     playerDied() {
+    playerDied() {
         this.currentHp = this.hp;
         this.player.setPosition(Phaser.Math.Between(4000, 6000), Phaser.Math.Between(6200, 8000));
         this.currentHp = this.hp / 3;
         this.smoothHpBarDecrease();
     }
 
-     changeDirection(enemy) {
+    changeDirection(enemy) {
         const directions = [
             new Phaser.Math.Vector2(1, 0),
             new Phaser.Math.Vector2(-1, 0),
@@ -699,20 +709,20 @@ getTextWidth(text, font) {
         enemy.wanderDirection = Phaser.Utils.Array.GetRandom(directions);
     }
 
-     changeEnemiesDirection() {
+    changeEnemiesDirection() {
         this.enemies.getChildren().forEach(enemy => {
             this.changeDirection(enemy);
         });
     }
 
-     spawnEnemies(count) {
+    spawnEnemies(count) {
         for (let i = 0; i < count; i++) {
             let x = Phaser.Math.Between(4000, 6000);
             let y = Phaser.Math.Between(6200, 8000);
 
             const rarityRoll = Phaser.Math.Between(1, 1000);
             let rarity, color, scale, hpMultiplier, massMultiplier, damageMultiplier;
-            
+
             if (rarityRoll <= 750) {
                 rarity = 'Nob';
                 color = '#1b1b1b';
@@ -748,8 +758,8 @@ getTextWidth(text, font) {
             enemy.setDepth(1);
             enemy.rarity = rarity;
             enemy.body.pushable = true;
-            enemy.body.setMass(1); 
-      
+            enemy.body.setMass(1);
+
             enemy.body.setCollideWorldBounds(true);
             enemy.body.setCircle(enemy.width * 0.3, enemy.width * 0.2, enemy.height * 0.2);
 
@@ -759,7 +769,7 @@ getTextWidth(text, font) {
             enemy.wanderDirection = new Phaser.Math.Vector2(0, 0);
             this.changeDirection(enemy);
 
-        
+
             enemy.healthBar = this.add.graphics();
             enemy.healthBar.setDepth(2);
 
@@ -767,32 +777,39 @@ getTextWidth(text, font) {
             enemy.maxHp = 60 * hpMultiplier;
             enemy.damageDelt = 20 * damageMultiplier;
 
-            enemy.rarityText = this.add.text(enemy.x, enemy.y - 35, rarity, { fontSize: '25px', fill: color });
+            enemy.rarityText = this.add.text(enemy.x, enemy.y - 35, rarity, {
+                fontSize: '25px',
+                fill: color
+            });
             enemy.rarityText.setOrigin(0.5);
-            enemy.rarityText.setDepth(3); 
+            enemy.rarityText.setDepth(3);
 
             this.enemies.add(enemy);
         }
     }
 
-     attemptSpawnEnemy() {
+    attemptSpawnEnemy() {
         if (Phaser.Math.Between(1, 2) === 1) {
             this.spawnEnemies(1);
         }
     }
 
-     getRarityMultiplier(rarity) {
+    getRarityMultiplier(rarity) {
         switch (rarity) {
-            case 'Nob': return 1;
-            case 'Mythic': return 5;
-            case 'Ultra': return 100;
-            case 'Super': return 250;
-            default: return 1;
+            case 'Nob':
+                return 1;
+            case 'Mythic':
+                return 5;
+            case 'Ultra':
+                return 100;
+            case 'Super':
+                return 250;
+            default:
+                return 1;
         }
     }
 
-     chasePlayer(player, enemy) {
-    }
+    chasePlayer(player, enemy) {}
 }
 
 
@@ -801,8 +818,8 @@ const gameConfig = {
     type: Phaser.AUTO,
     width: window.innerWidth,
     height: window.innerHeight,
-    pixelArt: true, 
-    scene: mainMap, 
+    pixelArt: true,
+    scene: mainMap,
     physics: {
         default: 'arcade',
         arcade: {
