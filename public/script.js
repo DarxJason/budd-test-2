@@ -312,13 +312,13 @@ export class mainMap extends Phaser.Scene {
             // Draw button background
             const buttonBg = this.add.graphics();
             buttonBg.fillStyle(backgroundColor, 0.8);  // Semi-transparent background
-            buttonBg.fillRoundedRect(screenWidth - buttonWidth - 10, yPosition, buttonWidth, buttonHeight, cornerRadius); // Align to the right with some padding
+            buttonBg.fillRoundedRect(screenWidth - buttonWidth + 100, yPosition, buttonWidth, buttonHeight, cornerRadius); // Align to the right with some padding
             buttonBg.lineStyle(borderWidth, borderColor);  // White border
-            buttonBg.strokeRoundedRect(screenWidth - buttonWidth - 10, yPosition, buttonWidth, buttonHeight, cornerRadius);
+            buttonBg.strokeRoundedRect(screenWidth - buttonWidth ) 100, yPosition, buttonWidth, buttonHeight, cornerRadius);
             buttonBg.setScrollFactor(0).setDepth(9);  // Ensure it's sticky and below the text
         
             // Create button text with the imported Google Font
-            const buttonText = this.add.text(screenWidth - buttonWidth / 2 - 10, yPosition + buttonHeight / 2, text, { 
+            const buttonText = this.add.text(screenWidth - buttonWidth / 2 ) 100, yPosition + buttonHeight / 2, text, { 
                 font: '24px Moderustic',  // Specify the font family here
                 fill: '#ffffff', // Text color (white for contrast)
                 align: 'center' // Center text alignment
