@@ -12,7 +12,6 @@ export class mainMap extends Phaser.Scene {
         this.load.image('tiles', 'assets/tiles.png');
         this.load.image('player', 'assets/flower.webp');
         this.load.image('enemy', 'assets/mob/bee.svg');
-        this.load.image('yellow_ladybug', 'assets/shineyLadybug.png');
         this.load.image('petal', 'assets/petal.png');
         this.load.image('squareBud', 'assets/squareBud.png');
         this.load.image('bush', 'assets/mob/bush.svg');
@@ -450,7 +449,7 @@ export class mainMap extends Phaser.Scene {
 
             const nobBasicPetal = document.createElement('img');
             nobBasicPetal.style.width = '33px';
-            nobBasicPetal.src = 'src/assets/squareBud.png';
+            nobBasicPetal.src = 'assets/squareBud.png';
             nobBasicPetal.style.padding = '5px';
             nobBasicPetal.style.height = '33px';
             nobBasicPetal.style.borderRadius = '3px';
@@ -462,7 +461,7 @@ export class mainMap extends Phaser.Scene {
 
      createUtilityIcons() {
         const boxes = [
-            { BOXborder: '#4981b1', BGcolor: '#5a9fdb', color: '#5a9fdb', border: '4px solid #4981b1', key: '(C)', image: 'src/assets/crafting.svg', content: 'Crafting' }
+            { BOXborder: '#4981b1', BGcolor: '#5a9fdb', color: '#5a9fdb', border: '4px solid #4981b1', key: '(C)', image: 'assets/crafting.svg', content: 'Crafting' }
         ];
 
         const boxContainer = document.createElement('div');
