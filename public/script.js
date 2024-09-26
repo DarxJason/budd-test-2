@@ -8,14 +8,14 @@ export class mainMap extends Phaser.Scene {
     }
 
      preload() {
-        this.load.tilemapTiledJSON('maps', 'assets/map.json');
-        this.load.image('tiles', 'assets/tiles.png');
-        this.load.image('player', 'assets/flower.webp');
-        this.load.image('enemy', 'assets/mob/bee.svg');
-        this.load.image('yellow_ladybug', 'assets/shineyLadybug.png');
-        this.load.image('petal', 'assets/petal.png');
-        this.load.image('squareBud', 'assets/squareBud.png');
-        this.load.image('bush', 'assets/mob/bush.svg');
+        this.load.tilemapTiledJSON('maps', '/public/assets/map.json');
+        this.load.image('tiles', '/public/assets/tiles.png');
+        this.load.image('player', '/public/assets/flower.webp');
+        this.load.image('enemy', '/public/assets/mob/bee.svg');
+        this.load.image('yellow_ladybug', '/public/assets/shineyLadybug.png');
+        this.load.image('petal', '/public/assets/petal.png');
+        this.load.image('squareBud', '/public/assets/squareBud.png');
+        this.load.image('bush', '/public/assets/mob/bush.svg');
     }
 
      create() {
