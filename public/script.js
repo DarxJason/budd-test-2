@@ -1,3 +1,7 @@
+// Initialize the socket connection
+const socket = io();
+let players = {};  // Store all players
+
 let player;
 let playerLoginCode = null; // Store the player's login code
 
@@ -87,6 +91,52 @@ export class mainMap extends Phaser.Scene {
         groundLayer.setScale(15);
         wallLayer.setScale(15);
 
+        this.otherPlayers = {};  // Initialize object to store other players
+    
+// Handle receiving the current players when joining the game
+socket.on('currentPlayers', (data) => {
+    players = data;
+    Object.keys(players).forEach((id) => {
+        if (id !== socket.id) {
+            addOtherPlayer(players[id]);  // Add other players to the game
+        }
+    });
+});
+
+// Handle when a new player joins the game
+socket.on('newPlayer', (playerData) => {
+    addOtherPlayer(playerData);
+});
+
+// Handle player disconnection
+socket.on('playerDisconnected', (playerId) => {
+    removePlayer(playerId);
+});
+
+// Handle player updates from the server
+socket.on('playerUpdates', (updatedPlayers) => {
+    players = updatedPlayers;
+    updateOtherPlayers();
+});
+        // Emit movement on SPACE key press
+        this.input.keyboard.on('keydown-SPACE', () => {
+            socket.emit('playerMovement', {
+                x: this.player.x,
+                y: this.player.y,
+                attacking: true
+            });
+        });
+    
+        // Listen for other players' movements
+        socket.on('playerMovement', (data) => {
+            if (this.otherPlayers[data.id]) {
+                this.otherPlayers[data.id].x = data.x;
+                this.otherPlayers[data.id].y = data.y;
+                this.otherPlayers[data.id].attacking = data.attacking;
+            }
+        });
+    
+        
 
         this.useMouseControl = false;
         this.movementArrow = this.add.graphics();
@@ -170,9 +220,8 @@ export class mainMap extends Phaser.Scene {
         });
 
         // Create the buttons using the new function with separate background colors
-         const createButtonPosition = 0;
+        const createButtonPosition = 0;
         const loginButtonPosition = 45;
-
 
         const createButton = this.createButton('Create Account', createButtonPosition, this.createAccount, 0x0AFC4B); // Green background
         const loginButton = this.createButton('Login', loginButtonPosition, this.login, 0xFF3D3D); // Red background
@@ -292,6 +341,16 @@ export class mainMap extends Phaser.Scene {
             bush.healthBar.fillStyle(0x00ff00, 1);
             bush.healthBar.fillRect(bush.x - 20, bush.y - 35, 40 * (bush.currentHp / bush.maxHp), 5);
         });
+
+        this.input.on('pointermove', (pointer) => {
+            const playerData = {
+                x: this.player.x,  // Player's x position
+                y: this.player.y,  // Player's y position
+                attacking: this.player.isAttacking  // Is the player attacking?
+            };
+            socket.emit('playerMovement', playerData);  // Send player data to the server
+        });
+        
     }
 
           // Function to create buttons with auto-fitting width and height
@@ -485,7 +544,30 @@ export class mainMap extends Phaser.Scene {
 
         this.updateHpBar();
     }
-
+    addOtherPlayer(playerData) {
+        const otherPlayer = this.add.sprite(playerData.x, playerData.y, 'playerSprite');
+        otherPlayer.id = playerData.id;
+        players[playerData.id] = otherPlayer;  // Store the player in the players object
+    }
+    
+    updateOtherPlayers() {
+        Object.keys(players).forEach((id) => {
+            if (id !== socket.id) {
+                const otherPlayer = players[id];
+                otherPlayer.x = players[id].x;  // Update x position
+                otherPlayer.y = players[id].y;  // Update y position
+                otherPlayer.setVisible(true);   // Ensure the player is visible
+            }
+        });
+    }
+    
+    removePlayer(playerId) {
+        if (players[playerId]) {
+            players[playerId].destroy();  // Remove the player sprite
+            delete players[playerId];     // Delete the player from the players object
+        }
+    }
+    
     createBottomBoxes() {
 
     }
