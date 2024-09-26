@@ -4,7 +4,7 @@ let playerLoginCode = null; // Store the player's login code
 export class mainMap extends Phaser.Scene {
     constructor() {
         super("mainMap");
-    }
+    } 
   
     preload() {
         this.load.tilemapTiledJSON('maps', 'assets/map.json');
